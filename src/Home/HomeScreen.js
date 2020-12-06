@@ -1,6 +1,8 @@
 import React from "react";
 import {StatusBar} from "expo-status-bar";
-import {View, StyleSheet, TouchableOpacity, Text, Alert, ScrollView} from 'react-native';
+import {View, StyleSheet, TouchableOpacity,
+    Text, Alert, ScrollView, FlatList,
+    TouchableWithoutFeedback} from 'react-native';
 import {Image} from "react-native";
 import styles from '../Home/styles';
 import {FlatListSlider} from 'react-native-flatlist-slider';
@@ -26,26 +28,32 @@ const images = [
 
 const imagesCover = [
     {
+        Id: 1,
         banner: require('../images/endgame_poster.jpg'),
         desc: 'Avengers: Endgame 2019',
     },
     {
+        Id: 6,
         banner: require('../images/endgame_poster.jpg'),
         desc: 'Avengers: Endgame 2019'
     },
     {
+        Id: 2,
         banner: require('../images/endgame_poster.jpg'),
         desc: 'Avengers: Endgame 2019'
     },
     {
+        Id: 3,
         banner: require('../images/endgame_poster.jpg'),
         desc: 'Avengers: Endgame 2019'
     },
     {
+        Id: 4,
         banner: require('../images/endgame_poster.jpg'),
         desc: 'Avengers: Endgame 2019'
     },
     {
+        Id: 5,
         banner: require('../images/endgame_poster.jpg'),
         desc: 'Avengers: Endgame 2019'
     },
@@ -63,7 +71,7 @@ class HomeScreen extends React.Component {
                             local
                             timer={10000}
                             height={240}
-                            onPress={()=>Alert.alert('Description')}
+                            onPress={item => alert(JSON.stringify(item))}
                             indicatorActiveWidth={30}
                             indicatorActiveColor={'#15202B'}
                             indicatorInActiveColor={'#ffffff'}
@@ -75,21 +83,21 @@ class HomeScreen extends React.Component {
                         <View style={{flex:1}}>
                             <Text style={styles.textView}>popular</Text>
                         </View>
-                        <View style={{flex: 3}}>
-                            <FlatListSlider
-                                data={imagesCover}
-                                imageKey={'banner'}
-                                local
-                                autoscroll={false}
-                                width={125}
-                                height={175}
-                                onPress={item => alert(JSON.stringify(item))}
-                                indicator={false}
-                                animation={true}
-                                contentContainerStyle={{marginEnd: 16, marginLeft: 16}}
-                                separatorWidth={20}
-                            />
-                        </View>
+                            <View style={{flex: 3}}>
+                                <FlatListSlider
+                                    data={imagesCover}
+                                    imageKey={'banner'}
+                                    local
+                                    autoscroll={false}
+                                    width={125}
+                                    height={175}
+                                    onPress={item => alert(JSON.stringify(item))}
+                                    indicator={false}
+                                    animation={true}
+                                    contentContainerStyle={{marginEnd: 16, marginLeft: 16}}
+                                    separatorWidth={20}
+                                />
+                            </View>
                     </View>
                     <View style={{flex: 3}}>
                         <View style={{flex:1}}>

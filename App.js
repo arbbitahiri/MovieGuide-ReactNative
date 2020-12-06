@@ -4,10 +4,10 @@ import { StyleSheet, Text, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {NavigationContainer} from "@react-navigation/native";
-import HomeScreen from './Models/Home/HomeScreen'
-import SearchScreen from './Models/Search/SearchScreen'
-import FavoriteScreen from './Models/FavoriteScreen'
-import SettingsScreen from './Models/SettingsScreen'
+import HomeScreen from './src/Home/HomeScreen'
+import SearchScreen from './src/Search/SearchScreen'
+import FavoriteScreen from './src/Favorite/FavoriteScreen'
+import SettingsScreen from './src/SettingsScreen'
 
 export default function App() {
   return (

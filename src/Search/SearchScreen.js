@@ -2,6 +2,7 @@ import React from "react";
 import {StyleSheet, Text, View, TextInput, SafeAreaView, FlatList} from "react-native";
 import {StatusBar} from "expo-status-bar";
 import styles from '../Search/styles'
+import {Image} from "react-native-web";
 
 const imagesCover = [
     {
@@ -20,6 +21,8 @@ const imagesCover = [
         desc: 'Avengers: Endgame 2019'
     },
 ]
+//
+// const renderItem
 
 class SearchScreen extends React.Component {
     render() {
@@ -36,6 +39,11 @@ class SearchScreen extends React.Component {
                     <FlatList
                         data={imagesCover}
                         keyExtractor={item => item.id}
+                        // renderItem={({item}) =>
+                        //     <View style={{flex: 1, flexDirection: 'column'}}>
+                        //         <Image source={{uri: item.banner}} style={styles.imageView}/>
+                        //     </View>
+                        // }
                         renderItem={this.renderItem()}
                         numColumns={2}
                         />

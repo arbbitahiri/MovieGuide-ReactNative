@@ -18,6 +18,14 @@ const styles = StyleSheet.create({
         borderColor: '#B43343',
         backgroundColor: '#B43343',
     },
+    imageView: {
+
+        width: '50%',
+        height: 100 ,
+        margin: 7,
+        borderRadius : 7
+
+    },
 });
 
 export default styles;

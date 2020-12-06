@@ -20,7 +20,7 @@ function Item({ item }) {
                     <FAB
                         style={styles.fab}
                         small
-                        icon="plus"
+                        icon="check"
                         onPress={() => alert(item.id)}
                     />
                 </View>

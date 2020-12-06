@@ -7,7 +7,7 @@ import {NavigationContainer} from "@react-navigation/native";
 import HomeScreen from './src/Home/HomeScreen'
 import SearchScreen from './src/Search/SearchScreen'
 import FavoriteScreen from './src/Favorite/FavoriteScreen'
-import SettingsScreen from './src/SettingsScreen'
+import SettingsScreen from './src/Settings/SettingsScreen'
 
 export default function App() {
   return (

@@ -1,13 +1,22 @@
 import React from "react"
-import {StyleSheet, Text, View, Image, FlatList, TouchableOpacity, TouchableWithoutFeedback, Button} from "react-native";
+import {
+    StyleSheet,
+    Text,
+    View,
+    Image,
+    FlatList,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    Button
+} from "react-native";
 import {StatusBar} from "expo-status-bar";
 import { FAB } from 'react-native-paper';
 import styles from "../Favorite/styles"
 
 function Item({ item }) {
     return (
-            <View style={styles.listItem}>
-                <TouchableWithoutFeedback style={styles.movieItem} onPress={() => alert('pressed')} >
+            <View style={styles.listItemFav}>
+                <TouchableWithoutFeedback style={styles.movieItemFav} onPress={() => alert('pressed')} >
                     <Image styles={{width: 20, height: 20}}
                        source={item.photo}/>
                 </TouchableWithoutFeedback>
@@ -24,6 +33,7 @@ function Item({ item }) {
                         onPress={() => alert(item.id)}
                     />
                 </View>
+                <StatusBar style="auto" />
             </View>
     );
 }

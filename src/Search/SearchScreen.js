@@ -1,27 +1,23 @@
 import React from "react";
 import {
-    StyleSheet,
     Text,
     View,
     TextInput,
-    SafeAreaView,
     FlatList,
     TouchableWithoutFeedback,
-    Image,
-    ScrollView
+    Image
 } from "react-native";
 import {StatusBar} from "expo-status-bar";
 import styles from '../Search/styles'
 
-function Item({ item }) {
+function ItemSearch({ item }) {
     return (
-        <View style={styles.listItem}>
-            <TouchableWithoutFeedback style={styles.movieItem} onPress={() => alert(item.name)} >
-                <Image styles={{width: 20, height: 20}}
-                       source={item.photo}/>
+        <View style={styles.listItemFav}>
+            <TouchableWithoutFeedback onPress={() => alert(item.name)} >
+                <Image source={item.photo}/>
             </TouchableWithoutFeedback>
             <View style={{alignItems: "center"}}>
-                <Text style={styles.textDesign}>{item.name}</Text>
+                <Text style={styles.textDesignSearch}>{item.name}</Text>
             </View>
             <StatusBar style="auto" />
         </View>
@@ -136,7 +132,7 @@ class SearchScreen extends React.Component {
         return (
             <View
                 style={{
-                    height: .5,
+                    height: 5,
                     width: "100%",
                     backgroundColor: "#15202B",
                 }}
@@ -146,15 +142,25 @@ class SearchScreen extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <View style={styles.containerSearch}>
+                <View style={styles.searchDesign}>
+                    <TextInput
+                        autoCapitalize="none"
+                        autoCorrect={false}
+                        clearButtonMode="always"
+                        // value={query}
+                        // onChangeText={queryText => handleSearch(queryText)}
+                        placeholder="Search for a movie..."
+                        style={styles.text} />
+                </View>
                 <FlatList
                     style={{flex: 1}}
                     data={this.state.data}
-                    renderItem={({item}) => <Item item={item}/> }
+                    renderItem={({item}) => <ItemSearch item={item}/> }
                     keyExtractor={item => item.id}
                     horizontal={false}
                     numColumns={2}
-                    ItemSeperatorComponent = { this.flatListItemSeparator}
+                    ItemSeparatorComponent = { this.flatListItemSeparator}
                 />
             </View>
         )

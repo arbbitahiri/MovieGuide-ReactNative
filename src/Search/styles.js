@@ -2,28 +2,50 @@ import {StyleSheet} from "react-native";
 import Constants from "expo-constants";
 
 const styles = StyleSheet.create({
-    container: {
+    containerSearch: {
         flex: 1,
-        flexDirection: 'column',
         backgroundColor: '#15202B',
-        alignItems: 'center',
-        justifyContent: 'center',
         marginTop: Constants.statusBarHeight,
+        justifyContent: 'center',
+        alignItems: 'center',
+        // flexDirection: 'column'
     },
-    textInputStyle: {
-        height: 40,
-        borderWidth: 1,
-        paddingLeft: 20,
-        margin: 5,
-        borderColor: '#B43343',
-        backgroundColor: '#B43343',
+    listItemSearch:{
+        margin:5,
+        padding:5,
+        backgroundColor:"#15202B",
+        width:"100%",
+        flex:1,
+        alignSelf:"center",
+        flexDirection:"row",
+        // borderRadius:5
     },
-    imageView: {
-        width: '50%',
-        height: 100 ,
-        margin: 7,
-        borderRadius : 7
-
+    movieItemSearch: {
+        flex: 1,
+        flexDirection: "column"
+    },
+    searchDesign: {
+        alignItems: "flex-start",
+        backgroundColor: '#15202B',
+        padding: 10,
+        width: '100%',
+        marginVertical: 10,
+        borderRadius: 20
+    },
+    textDesignSearch: {
+        color: '#B43343',
+        marginTop: 8,
+        marginLeft: 16,
+        marginRight: 16,
+        marginBottom: 8,
+        fontSize: 12,
+        fontWeight:"bold"
+    },
+    text: {
+        fontSize: 15,
+        color: '#fff',
+        backgroundColor: '#15202B',
+        paddingHorizontal: 10
     },
 });
 

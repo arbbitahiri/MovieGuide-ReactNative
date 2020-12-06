@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    listItem:{
+    listItemFav:{
         margin:5,
         padding:5,
         backgroundColor:"#15202B",
@@ -19,9 +19,15 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         // borderRadius:5
     },
-    movieItem: {
+    movieItemFav: {
         flex: 1,
         flexDirection: "column"
+    },
+    text: {
+        fontSize: 20,
+        color: '#101010',
+        marginTop: 60,
+        fontWeight: '700'
     },
     textDesign: {
         color: '#B43343',

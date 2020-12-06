@@ -1,14 +1,22 @@
-import {StyleSheet} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
 import Constants from "expo-constants";
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: '#B43343',
+        backgroundColor: '#15202B',
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: Constants.statusBarHeight,
+    },
+    textView: {
+        color: 'lightblue',
+        marginTop: 55,
+        marginLeft: 5,
+        marginRight: 5,
+        marginBottom: 8,
+        fontSize: 42,
     },
     textInputStyle: {
         height: 40,
@@ -26,6 +34,14 @@ const styles = StyleSheet.create({
         borderRadius : 7
 
     },
+    ktobashk: {
+        color: 'lightblue',
+        fontSize: 23,
+        marginTop: 30,
+        marginLeft: -30,
+        marginRight: 0,
+        marginBottom: 19,
+    }
 });
 
 export default styles;

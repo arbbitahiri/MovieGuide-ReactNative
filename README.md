@@ -1,7 +1,7 @@
 # PPM20-MovieGuide
 
 <p align="center">
-  <img alt="Movie Guide" src="./app/assets/images/icon.png" height="85" width="85" />
+  <img alt="Movie Guide" src="./assets/ic_launcher_round.png" height="85" width="85" />
   <h3 align="center">Movie Guide</h3>
 </p>
 
@@ -27,4 +27,10 @@ Projekti është i ndërtuar duke përdorur Expo.
 
 ## Mockup UI Formati
 
-(./resources/login.jpg)
+<img alt="Movie Guide" src="./resources/login.jpg" height="500" width="250" />
+<img alt="Movie Guide" src="./resources/mainpage.jpg" height="500" width="250" />
+<img alt="Movie Guide" src="./resources/moviedetail_1.jpg" height="500" width="250" />
+<img alt="Movie Guide" src="./resources/moviedetail_2.jpg" height="500" width="250" />
+<img alt="Movie Guide" src="./resources/search.jpg" height="500" width="250" />
+<img alt="Movie Guide" src="./resources/favorites.jpg" height="500" width="250" />
+<img alt="Movie Guide" src="./resources/settings.jpg" height="500" width="250" />

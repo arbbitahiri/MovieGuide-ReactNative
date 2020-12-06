@@ -6,16 +6,18 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#15202B',
         marginTop: Constants.statusBarHeight,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     listItem:{
-        margin:10,
-        padding:10,
+        margin:5,
+        padding:5,
         backgroundColor:"#15202B",
-        width:"95%",
+        width:"100%",
         flex:1,
         alignSelf:"center",
         flexDirection:"row",
-        borderRadius:5
+        // borderRadius:5
     },
     movieItem: {
         flex: 1,

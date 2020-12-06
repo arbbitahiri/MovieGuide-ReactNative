@@ -1,55 +1,162 @@
 import React from "react";
-import {StyleSheet, Text, View, TextInput, SafeAreaView, FlatList} from "react-native";
+import {
+    StyleSheet,
+    Text,
+    View,
+    TextInput,
+    SafeAreaView,
+    FlatList,
+    TouchableWithoutFeedback,
+    Image,
+    ScrollView
+} from "react-native";
 import {StatusBar} from "expo-status-bar";
 import styles from '../Search/styles'
-import {Image} from "react-native-web";
 
-const imagesCover = [
-    {
-        id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-        banner: require('../images/endgame_poster.jpg'),
-        desc: 'Avengers: Endgame 2019',
-    },
-    {
-        id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-        banner: require('../images/endgame_poster.jpg'),
-        desc: 'Avengers: Endgame 2019'
-    },
-    {
-        id: '58694a0f-4tyl-471f-bd96-145571e29d72',
-        banner: require('../images/endgame_poster.jpg'),
-        desc: 'Avengers: Endgame 2019'
-    },
-]
-//
-// const renderItem
+function Item({ item }) {
+    return (
+        <View style={styles.listItem}>
+            <TouchableWithoutFeedback style={styles.movieItem} onPress={() => alert(item.name)} >
+                <Image styles={{width: 20, height: 20}}
+                       source={item.photo}/>
+            </TouchableWithoutFeedback>
+            <View style={{alignItems: "center"}}>
+                <Text style={styles.textDesign}>{item.name}</Text>
+            </View>
+            <StatusBar style="auto" />
+        </View>
+    );
+}
 
 class SearchScreen extends React.Component {
+    state = {
+        data:[
+            {
+                "id": "1",
+                "name": "Avengers: Endgame",
+                photo: require('../images/endgamesize200.jpg'),
+                "date": "2019-03-06",
+                "rating": "8.9/10"
+            },
+            {
+                "id": "2",
+                "name": "Avengers: Endgame",
+                photo: require('../images/endgamesize200.jpg'),
+                "date": "2019-03-06",
+                "rating": "8.9/10"
+            },
+            {
+                "id": "3",
+                "name": "Avengers: Endgame",
+                photo: require('../images/endgamesize200.jpg'),
+                "date": "2019-03-06",
+                "rating": "8.9/10"
+            },
+            {
+                "id": "4",
+                "name": "Avengers: Endgame",
+                photo: require('../images/endgamesize200.jpg'),
+                "date": "2019-03-06",
+                "rating": "8.9/10"
+            },
+            {
+                "id": "5",
+                "name": "Avengers: Endgame",
+                photo: require('../images/endgamesize200.jpg'),
+                "date": "2019-03-06",
+                "rating": "8.9/10"
+            },
+            {
+                "id": "7",
+                "name": "Avengers: Endgame",
+                photo: require('../images/endgamesize200.jpg'),
+                "date": "2019-03-06",
+                "rating": "8.9/10"
+            },
+            {
+                "id": "8",
+                "name": "Avengers: Endgame",
+                photo: require('../images/endgamesize200.jpg'),
+                "date": "2019-03-06",
+                "rating": "8.9/10"
+            },
+            {
+                "id": "9",
+                "name": "Avengers: Endgame",
+                photo: require('../images/endgamesize200.jpg'),
+                "date": "2019-03-06",
+                "rating": "8.9/10"
+            },
+            {
+                "id": "10",
+                "name": "Avengers: Endgame",
+                photo: require('../images/endgamesize200.jpg'),
+                "date": "2019-03-06",
+                "rating": "8.9/10"
+            },
+            {
+                "id": "11",
+                "name": "Avengers: Endgame",
+                photo: require('../images/endgamesize200.jpg'),
+                "date": "2019-03-06",
+                "rating": "8.9/10"
+            },
+            {
+                "id": "12",
+                "name": "Avengers: Endgame",
+                photo: require('../images/endgamesize200.jpg'),
+                "date": "2019-03-06",
+                "rating": "8.9/10"
+            },
+            {
+                "id": "13",
+                "name": "Avengers: Endgame",
+                photo: require('../images/endgamesize200.jpg'),
+                "date": "2019-03-06",
+                "rating": "8.9/10"
+            },
+            {
+                "id": "14",
+                "name": "Avengers: Endgame",
+                photo: require('../images/endgamesize200.jpg'),
+                "date": "2019-03-06",
+                "rating": "8.9/10"
+            },
+            {
+                "id": "15",
+                "name": "Avengers: Endgame",
+                photo: require('../images/endgamesize200.jpg'),
+                "date": "2019-03-06",
+                "rating": "8.9/10"
+            }
+        ]
+    }
+
+    flatListItemSeparator = () => {
+        return (
+            <View
+                style={{
+                    height: .5,
+                    width: "100%",
+                    backgroundColor: "#15202B",
+                }}
+            />
+        )
+    };
+
     render() {
         return (
-            <SafeAreaView style={styles.container}>
-                <View style={{flex: 1}}>
-                    <TextInput
-                        style={styles.textInputStyle}
-                        underlineColorAndroid="transparent"
-                        placeholder="Search for a movie..."
-                    />
-                </View>
-                <View style={{flex:6}}>
-                    <FlatList
-                        data={imagesCover}
-                        keyExtractor={item => item.id}
-                        // renderItem={({item}) =>
-                        //     <View style={{flex: 1, flexDirection: 'column'}}>
-                        //         <Image source={{uri: item.banner}} style={styles.imageView}/>
-                        //     </View>
-                        // }
-                        renderItem={this.renderItem()}
-                        numColumns={2}
-                        />
-                </View>
-                <StatusBar style="auto" />
-            </SafeAreaView>
+            <View style={styles.container}>
+                <FlatList
+                    style={{flex: 1}}
+                    data={this.state.data}
+                    renderItem={({item}) => <Item item={item}/> }
+                    keyExtractor={item => item.id}
+                    horizontal={false}
+                    numColumns={2}
+                    ItemSeperatorComponent = { this.flatListItemSeparator}
+                />
+            </View>
         )
     }
 }

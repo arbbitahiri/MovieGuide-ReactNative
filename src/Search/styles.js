@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: '#B43343',
+        backgroundColor: '#15202B',
         alignItems: 'center',
         justifyContent: 'center',
         marginTop: Constants.statusBarHeight,
@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#B43343',
     },
     imageView: {
-
         width: '50%',
         height: 100 ,
         margin: 7,

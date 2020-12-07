@@ -8,6 +8,7 @@ import HomeScreen from './src/Home/HomeScreen'
 import SearchScreen from './src/Search/SearchScreen'
 import FavoriteScreen from './src/Favorite/FavoriteScreen'
 import SettingsScreen from './src/Settings/SettingsScreen'
+import MovieDetailsScreen from './src/MovieDetails/MovieDetailsScreen'
 
 export default function App() {
   return (
@@ -64,6 +65,16 @@ function MyTabs() {
                       <MaterialCommunityIcons name="settings" color={color} size={26} />
                   ),
               }}/>
+          {/*<Tab.Screen*/}
+          {/*    name="MovieDetails"*/}
+          {/*    component={MovieDetailsScreen}*/}
+          {/*    options={{*/}
+          {/*        tabBarLabel: 'Details',*/}
+          {/*        tabBarIcon: ({color}) => (*/}
+          {/*            <MaterialCommunityIcons name="more" color={color} size={26} />*/}
+          {/*        ),*/}
+          {/*    }}*/}
+          {/*/>*/}
       </Tab.Navigator>
   )
 }

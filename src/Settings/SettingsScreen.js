@@ -6,7 +6,6 @@ import {
     Image
 } 
 from "react-native";
-
 import styles from "../Settings/styles";
 
 class SettingsScreen extends React.Component {

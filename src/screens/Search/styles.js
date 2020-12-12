@@ -47,6 +47,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#15202B',
         paddingHorizontal: 10
     },
+    moviesImageSearch: {
+        width: 200,
+        height: 270
+    }
 });
 
 export default styles;

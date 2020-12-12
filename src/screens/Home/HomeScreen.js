@@ -29,19 +29,23 @@ function Home({ item, navigation }) {
 
 const images = [
     {
-        banner: require('../../images/endgame.jpg'),
+        banner: require('../../images/backdrop/ThorBD.jpg'),
         desc: 'Avengers: Endgame 2019'
     },
     {
-        banner: require('../../images/endgame.jpg'),
+        banner: require('../../images/backdrop/CaptainMarvelBD.jpg'),
         desc: 'Avengers: Endgame 2019'
     },
     {
-        banner: require('../../images/endgame.jpg'),
+        banner: require('../../images/backdrop/WW84BD.jpg'),
         desc: 'Avengers: Endgame 2019'
     },
     {
-        banner: require('../../images/endgame.jpg'),
+        banner: require('../../images/backdrop/CaptainAmericaBD.jpg'),
+        desc: 'Avengers: Endgame 2019'
+    },
+    {
+        banner: require('../../images/backdrop/InfinityWarBD.jpg'),
         desc: 'Avengers: Endgame 2019'
     },
 ]
@@ -52,34 +56,49 @@ function HomeScreen({navigation}) {
         horizontal: true,
         data: [
             {
-                "id": "1",
+                "id": "9",
                 photo: require('../../images/endgame_poster.jpg'),
-                "name": 'Avengers: Endgame',
+                "name": 'Thor: Ragnarok'
             },
             {
-                "id": "6",
-                photo: require('../../images/endgame_poster.jpg'),
-                "name": 'Avengers: Endgame'
+                "id": "1",
+                photo: require('../../images/similarMovies/WW84.jpg'),
+                "name": 'Wonder Woman 1984',
             },
             {
                 "id": "2",
-                photo: require('../../images/endgame_poster.jpg'),
-                "name": 'Avengers: Endgame'
+                photo: require('../../images/similarMovies/CaptainMarvel.jpg'),
+                "name": 'Captain Marvel'
             },
             {
                 "id": "3",
-                photo: require('../../images/endgame_poster.jpg'),
-                "name": 'Avengers: Endgame'
+                photo: require('../../images/similarMovies/DCJusticeLeague.jpg'),
+                "name": 'DC Justice League',
             },
             {
                 "id": "4",
-                photo: require('../../images/endgame_poster.jpg'),
-                "name": 'Avengers: Endgame'
+                photo: require('../../images/similarMovies/ManofSteel.jpg'),
+                "name": 'Man of Steel'
             },
             {
                 "id": "5",
-                photo: require('../../images/endgame_poster.jpg'),
-                "name": 'Avengers: Endgame'
+                photo: require('../../images/similarMovies/SpiderMan.jpg'),
+                "name": 'Spider Man'
+            },
+            {
+                "id": "6",
+                photo: require('../../images/similarMovies/BatmanBegins.jpg'),
+                "name": 'Batman: Begins'
+            },
+            {
+                "id": "7",
+                photo: require('../../images/similarMovies/AntMan2.jpg'),
+                "name": 'Ant-Man 2'
+            },
+            {
+                "id": "8",
+                photo: require('../../images/similarMovies/ThorRagnarok.jpg'),
+                "name": 'Thor: Ragnarok'
             },
         ]
     }
@@ -94,7 +113,7 @@ function HomeScreen({navigation}) {
                         local
                         timer={10000}
                         height={240}
-                        onPress={item => alert(JSON.stringify(item))}
+                        onPress={({item}) => <Home item={item} navigation={navigation}/>}
                         indicatorActiveWidth={30}
                         indicatorActiveColor={'#15202B'}
                         indicatorInActiveColor={'#ffffff'}
@@ -118,7 +137,7 @@ function HomeScreen({navigation}) {
                 </View>
                 <View style={{flex: 3}}>
                     <View style={{flex:1}}>
-                        <Text style={styles.textView}>now playing</Text>
+                        <Text style={styles.textView}>Now Playing</Text>
                     </View>
                     <View style={{flex: 3}}>
                         <FlatList
@@ -132,7 +151,7 @@ function HomeScreen({navigation}) {
                 </View>
                 <View style={{flex: 3}}>
                     <View style={{flex:1}}>
-                        <Text style={styles.textView}>top rated</Text>
+                        <Text style={styles.textView}>Top Rated</Text>
                     </View>
                     <View style={{flex: 3}}>
                         <FlatList
@@ -146,7 +165,7 @@ function HomeScreen({navigation}) {
                 </View>
                 <View style={{flex: 3}}>
                     <View style={{flex:1}}>
-                        <Text style={styles.textView}>upcoming</Text>
+                        <Text style={styles.textView}>Upcoming</Text>
                     </View>
                     <View style={{flex: 3}}>
                         <FlatList

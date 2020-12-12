@@ -1,19 +1,22 @@
-import {StyleSheet} from "react-native";
+import {StyleSheet, Dimensions} from "react-native";
 import Constants from "expo-constants";
 
 const styles = StyleSheet.create({
-    container: {
+    containerFav: {
         flex: 1,
+        flexDirection: 'column',
+        flexWrap: 'nowrap',
         backgroundColor: '#15202B',
-        marginTop: Constants.statusBarHeight,
+        alignItems: 'flex-start',
         justifyContent: 'center',
-        alignItems: 'center',
+        marginTop: Constants.statusBarHeight
     },
     listItemFav:{
         margin:5,
         padding:5,
         backgroundColor:"#15202B",
-        width:"100%",
+        width: "100%",
+        height: 250,
         flex:1,
         alignSelf:"center",
         flexDirection:"row",
@@ -21,7 +24,12 @@ const styles = StyleSheet.create({
     },
     movieItemFav: {
         flex: 1,
-        flexDirection: "column"
+        flexDirection: "column",
+    },
+    imageViewFav: {
+        margin: 8,
+        width: 150,
+        height: 200,
     },
     text: {
         fontSize: 20,
@@ -37,15 +45,6 @@ const styles = StyleSheet.create({
         marginBottom: 16,
         fontSize: 16,
         fontWeight:"bold"
-    },
-    btnView: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
-        backgroundColor: '#B43343',
-        position: 'absolute',
-        bottom: 10,
-        right: 10,
     },
     fab: {
         width: 60,

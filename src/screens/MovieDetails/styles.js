@@ -10,8 +10,10 @@ const styles = StyleSheet.create({
         // alignItems: 'flex-start',
     },
     imageCover: {
-        width: 75,
-        height: 150
+        marginTop: -85,
+        marginStart: 16,
+        width: 150,
+        height: 200
     },
     imagePoster: {
         flex: 1,
@@ -23,7 +25,7 @@ const styles = StyleSheet.create({
     imageViewSM: {
         margin: 8,
         width: 150,
-        height: 250
+        height: 200
     },
     imageViewCast: {
         margin: 8,
@@ -76,7 +78,10 @@ const styles = StyleSheet.create({
         marginTop: 185,
     },
     desc: {
-        margin: 16,
+        marginTop: 8,
+        marginStart: 16,
+        marginEnd: 16,
+        marginBottom: 8,
         color: '#B43343',
         fontSize: 15
     },
@@ -90,6 +95,12 @@ const styles = StyleSheet.create({
         marginRight: 16,
         marginBottom: 8,
         fontSize: 15,
+        fontWeight:"bold"
+    },
+    trailerNames: {
+        color: '#B43343',
+        margin: 16,
+        fontSize: 18,
         fontWeight:"bold"
     },
 });

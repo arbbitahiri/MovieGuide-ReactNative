@@ -10,125 +10,76 @@ import {
 import {StatusBar} from "expo-status-bar";
 import styles from './styles'
 
-function ItemSearch({ item }) {
+function ItemSearch({ item, navigation }) {
     return (
         <View style={styles.listItemFav}>
-            <TouchableWithoutFeedback onPress={() => alert(item.name)} >
-                <Image source={item.photo}/>
+            <StatusBar style={'dark'} backgroundColor={'#B43343'} />
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('MovieDetails')} >
+                <Image
+                    source={item.photo}
+                    style={styles.moviesImageSearch}
+                    resizeMode="cover"
+                />
             </TouchableWithoutFeedback>
             <View style={{alignItems: "center"}}>
                 <Text style={styles.textDesignSearch}>{item.name}</Text>
             </View>
-            <StatusBar style="auto" />
         </View>
     );
 }
 
-class SearchScreen extends React.Component {
-    state = {
-        data:[
+function SearchScreen({navigation}) {
+    let state = {
+        searchExamples: [
+            {
+                "id": "9",
+                photo: require('../../images/endgame_poster.jpg'),
+                "name": 'Thor: Ragnarok'
+            },
             {
                 "id": "1",
-                "name": "Avengers: Endgame",
-                photo: require('../../images/endgamesize200.jpg'),
-                "date": "2019-03-06",
-                "rating": "8.9/10"
+                photo: require('../../images/similarMovies/WW84.jpg'),
+                "name": 'Wonder Woman 1984',
             },
             {
                 "id": "2",
-                "name": "Avengers: Endgame",
-                photo: require('../../images/endgamesize200.jpg'),
-                "date": "2019-03-06",
-                "rating": "8.9/10"
+                photo: require('../../images/similarMovies/CaptainMarvel.jpg'),
+                "name": 'Captain Marvel'
             },
             {
                 "id": "3",
-                "name": "Avengers: Endgame",
-                photo: require('../../images/endgamesize200.jpg'),
-                "date": "2019-03-06",
-                "rating": "8.9/10"
+                photo: require('../../images/similarMovies/DCJusticeLeague.jpg'),
+                "name": 'DC Justice League',
             },
             {
                 "id": "4",
-                "name": "Avengers: Endgame",
-                photo: require('../../images/endgamesize200.jpg'),
-                "date": "2019-03-06",
-                "rating": "8.9/10"
+                photo: require('../../images/similarMovies/ManofSteel.jpg'),
+                "name": 'Man of Steel'
             },
             {
                 "id": "5",
-                "name": "Avengers: Endgame",
-                photo: require('../../images/endgamesize200.jpg'),
-                "date": "2019-03-06",
-                "rating": "8.9/10"
+                photo: require('../../images/similarMovies/SpiderMan.jpg'),
+                "name": 'Spider Man'
+            },
+            {
+                "id": "6",
+                photo: require('../../images/similarMovies/BatmanBegins.jpg'),
+                "name": 'Batman: Begins'
             },
             {
                 "id": "7",
-                "name": "Avengers: Endgame",
-                photo: require('../../images/endgamesize200.jpg'),
-                "date": "2019-03-06",
-                "rating": "8.9/10"
+                photo: require('../../images/similarMovies/AntMan2.jpg'),
+                "name": 'Ant-Man 2'
             },
             {
                 "id": "8",
-                "name": "Avengers: Endgame",
-                photo: require('../../images/endgamesize200.jpg'),
-                "date": "2019-03-06",
-                "rating": "8.9/10"
+                photo: require('../../images/similarMovies/ThorRagnarok.jpg'),
+                "name": 'Thor: Ragnarok'
             },
-            {
-                "id": "9",
-                "name": "Avengers: Endgame",
-                photo: require('../../images/endgamesize200.jpg'),
-                "date": "2019-03-06",
-                "rating": "8.9/10"
-            },
-            {
-                "id": "10",
-                "name": "Avengers: Endgame",
-                photo: require('../../images/endgamesize200.jpg'),
-                "date": "2019-03-06",
-                "rating": "8.9/10"
-            },
-            {
-                "id": "11",
-                "name": "Avengers: Endgame",
-                photo: require('../../images/endgamesize200.jpg'),
-                "date": "2019-03-06",
-                "rating": "8.9/10"
-            },
-            {
-                "id": "12",
-                "name": "Avengers: Endgame",
-                photo: require('../../images/endgamesize200.jpg'),
-                "date": "2019-03-06",
-                "rating": "8.9/10"
-            },
-            {
-                "id": "13",
-                "name": "Avengers: Endgame",
-                photo: require('../../images/endgamesize200.jpg'),
-                "date": "2019-03-06",
-                "rating": "8.9/10"
-            },
-            {
-                "id": "14",
-                "name": "Avengers: Endgame",
-                photo: require('../../images/endgamesize200.jpg'),
-                "date": "2019-03-06",
-                "rating": "8.9/10"
-            },
-            {
-                "id": "15",
-                "name": "Avengers: Endgame",
-                photo: require('../../images/endgamesize200.jpg'),
-                "date": "2019-03-06",
-                "rating": "8.9/10"
-            }
         ]
     }
 
-    flatListItemSeparator = () => {
+    const flatListItemSeparator = () => {
         return (
             <View
                 style={{
@@ -139,8 +90,6 @@ class SearchScreen extends React.Component {
             />
         )
     };
-
-    render() {
         return (
             <View style={styles.containerSearch}>
                 <View style={styles.searchDesign}>
@@ -155,16 +104,15 @@ class SearchScreen extends React.Component {
                 </View>
                 <FlatList
                     style={{flex: 1}}
-                    data={this.state.data}
-                    renderItem={({item}) => <ItemSearch item={item}/> }
+                    data={state.searchExamples}
+                    renderItem={({item}) => <ItemSearch item={item} navigation={navigation}/> }
                     keyExtractor={item => item.id}
                     horizontal={false}
                     numColumns={2}
-                    ItemSeparatorComponent = { this.flatListItemSeparator}
+                    ItemSeparatorComponent = { flatListItemSeparator }
                 />
             </View>
         )
-    }
 }
 
 export default SearchScreen;

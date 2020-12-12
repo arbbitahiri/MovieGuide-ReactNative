@@ -1,5 +1,4 @@
 import React from 'react'
-import {StatusBar} from "expo-status-bar";
 import {
     View,
     Image,
@@ -7,14 +6,25 @@ import {
     Text,
     ScrollView,
     FlatList,
-    ImageBackground
+    Linking
 } from 'react-native';
 import styles from './styles'
 import {FAB} from "react-native-paper";
 
-const backdrop = {
-    image: require('../../images/endgame.jpg')
-};
+function CastMovie({ item }) {
+    return (
+        <View style={styles.listItemHome}>
+            <Image
+                style={styles.imageViewCast}
+                source={item.photo}
+                resizeMode="cover"
+            />
+            <View style={{alignItems: "center"}}>
+                <Text style={styles.castNames}>{item.name}</Text>
+            </View>
+        </View>
+    )
+}
 
 function SimilarMovies({ item, navigation }) {
     return (
@@ -30,17 +40,12 @@ function SimilarMovies({ item, navigation }) {
     )
 }
 
-function CastMovie({ item }) {
+function Trailers({ item }) {
     return (
         <View style={styles.listItemHome}>
-            <Image
-                style={styles.imageViewCast}
-                source={item.photo}
-                resizeMode="cover"
-            />
-            <View style={{alignItems: "center"}}>
-                <Text style={styles.castNames}>{item.name}</Text>
-            </View>
+            <TouchableWithoutFeedback onPress={() => Linking.openURL(item.ytUrl)} >
+                <Text style={styles.trailerNames}>{item.trailerName}</Text>
+            </TouchableWithoutFeedback>
         </View>
     )
 }
@@ -127,6 +132,23 @@ function MovieDetailsScreen({navigation}) {
                 "id": "9",
                 photo: require('../../images/similarMovies/SpiderMan.jpg')
             },
+        ],
+        trailers: [
+            {
+                'id': '1',
+                ytUrl: "https://www.youtube.com/watch?v=TcMBFSGVi1c&ab_channel=MarvelEntertainment",
+                'trailerName': 'Avengers: Endgame Trailer 1'
+            },
+            {
+                'id': '',
+                ytUrl: "https://www.youtube.com/watch?v=hA6hldpSTF8&ab_channel=MarvelEntertainment",
+                'trailerName': 'Avengers: Endgame Trailer 2'
+            },
+            {
+                'id': '3',
+                ytUrl: "https://www.youtube.com/watch?v=0jNvJU52LvU&ab_channel=MarvelEntertainment",
+                'trailerName': 'Avengers: Endgame Trailer 3'
+            }
         ]
     }
     return (
@@ -137,7 +159,7 @@ function MovieDetailsScreen({navigation}) {
                         source={require('../../images/endgame.jpg')}
                         style={styles.imagePoster}/>
                     <Image
-                        style={styles.imageViewSM}
+                        style={styles.imageCover}
                         source={require('../../images/endgame_poster.jpg')}
                         resizeMode="cover"
                     />
@@ -156,11 +178,8 @@ function MovieDetailsScreen({navigation}) {
                     <Text style={styles.desc}>{state.description}</Text>
                 </View>
                 <View style={{flex: 1}}>
-                    <Text style={styles.desc}>{state.description}</Text>
-                </View>
-                <View style={{flex: 1}}>
                     <View style={styles.castView}>
-                        <Text style={{marginStart: 16, fontSize: 18}}>CAST</Text>
+                        <Text style={{marginStart: 16, fontSize: 16}}>CAST</Text>
                     </View>
                 </View>
                 <View style={{flex: 3}}>
@@ -174,7 +193,7 @@ function MovieDetailsScreen({navigation}) {
                 </View>
                 <View style={{flex: 1}}>
                     <View style={styles.castView}>
-                        <Text style={{marginStart: 16, fontSize: 18}}>SIMILAR MOVIES</Text>
+                        <Text style={{marginStart: 16, fontSize: 16}}>SIMILAR MOVIES</Text>
                     </View>
                 </View>
                 <View style={{flex: 3}}>
@@ -182,6 +201,20 @@ function MovieDetailsScreen({navigation}) {
                         horizontal={true}
                         data={state.similarMovies}
                         renderItem={({item}) => <SimilarMovies item={item}/>}
+                        keyExtractor={item => item.id}
+                        showsHorizontalScrollIndicator={false}
+                    />
+                </View>
+                <View style={{flex: 1}}>
+                    <View style={styles.castView}>
+                        <Text style={{marginStart: 16, fontSize: 16}}>TRAILERS</Text>
+                    </View>
+                </View>
+                <View style={{flex: 3}}>
+                    <FlatList
+                        horizontal={false}
+                        data={state.trailers}
+                        renderItem={({item}) => <Trailers url={item.ytUrl} item={item}/>}
                         keyExtractor={item => item.id}
                         showsHorizontalScrollIndicator={false}
                     />

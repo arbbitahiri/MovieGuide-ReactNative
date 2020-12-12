@@ -1,6 +1,9 @@
 import {StyleSheet, Dimensions} from "react-native";
 import Constants from "expo-constants";
 
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
 const styles = StyleSheet.create({
     containerFav: {
         flex: 1,
@@ -15,7 +18,7 @@ const styles = StyleSheet.create({
         margin:5,
         padding:5,
         backgroundColor:"#15202B",
-        width: "100%",
+        width: windowWidth,
         height: 250,
         flex:1,
         alignSelf:"center",
@@ -30,6 +33,7 @@ const styles = StyleSheet.create({
         margin: 8,
         width: 150,
         height: 200,
+        alignSelf: 'center'
     },
     text: {
         fontSize: 20,

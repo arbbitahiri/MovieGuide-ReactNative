@@ -16,9 +16,9 @@ import styles from "./styles"
 function ItemFavorites({ item, navigation }) {
     return (
         <View style={styles.listItemFav}>
-            <TouchableWithoutFeedback style={styles.movieItemFav} onPress={() => navigation.navigate('MovieDetails')} >
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('MovieDetails')} >
                 <Image
-                    style={styles.imageViewSM}
+                    style={styles.imageViewFav}
                     source={item.photo}
                     resizeMode="cover"
                 />
@@ -109,6 +109,18 @@ function FavoriteScreen({navigation}) {
         ]
     }
 
+    const flatListItemSeparator = () => {
+        return (
+            <View
+                style={{
+                    height: 1,
+                    width: "100%",
+                    backgroundColor: "#B43343",
+                }}
+            />
+        )
+    };
+
     return (
         <View style={styles.containerFav}>
             <FlatList
@@ -116,6 +128,7 @@ function FavoriteScreen({navigation}) {
                 data={state.data}
                 renderItem={({item}) => <ItemFavorites item={item} navigation={navigation}/> }
                 keyExtractor={item => item.id}
+                ItemSeparatorComponent = { flatListItemSeparator }
             />
         </View>
     );

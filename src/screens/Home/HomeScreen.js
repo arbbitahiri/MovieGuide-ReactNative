@@ -143,7 +143,7 @@ function HomeScreen({navigation}) {
                         <FlatList
                             horizontal={true}
                             data={state.data}
-                            renderItem={({item}) => <Home item={item}/>}
+                            renderItem={({item}) => <Home item={item} navigation={navigation}/>}
                             keyExtractor={item => item.id}
                             showsHorizontalScrollIndicator={false}
                         />
@@ -157,7 +157,7 @@ function HomeScreen({navigation}) {
                         <FlatList
                             horizontal={true}
                             data={state.data}
-                            renderItem={({item}) => <Home item={item}/>}
+                            renderItem={({item}) => <Home item={item} navigation={navigation}/>}
                             keyExtractor={item => item.id}
                             showsHorizontalScrollIndicator={false}
                         />
@@ -171,7 +171,7 @@ function HomeScreen({navigation}) {
                         <FlatList
                             horizontal={true}
                             data={state.data}
-                            renderItem={({item}) => <Home item={item}/>}
+                            renderItem={({item}) => <Home item={item} navigation={navigation}/>}
                             keyExtractor={item => item.id}
                             showsHorizontalScrollIndicator={false}
                         />

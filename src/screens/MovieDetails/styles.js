@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
     imageViewCast: {
         margin: 8,
         width: 150,
-        height: 200
+        height: 200,
+        alignSelf: 'center'
     },
     movieTitle: {
         position: 'absolute',

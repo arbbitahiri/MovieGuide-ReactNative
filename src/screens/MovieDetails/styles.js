@@ -26,13 +26,19 @@ const styles = StyleSheet.create({
         width: 150,
         height: 250
     },
+    imageViewCast: {
+        margin: 8,
+        width: 150,
+        height: 200
+    },
     movieTitle: {
         position: 'absolute',
         right: 0,
         marginTop: 260,
         marginEnd: 40,
         color: '#B43343',
-        fontSize: 18
+        fontSize: 18,
+        textAlign: 'center'
     },
     releaseDate: {
         position: 'absolute',
@@ -74,6 +80,18 @@ const styles = StyleSheet.create({
         margin: 16,
         color: '#B43343',
         fontSize: 15
+    },
+    castView: {
+        backgroundColor: '#B43343',
+        color: '#253341',
+    },
+    castNames: {
+        color: '#B43343',
+        marginLeft: 16,
+        marginRight: 16,
+        marginBottom: 8,
+        fontSize: 15,
+        fontWeight:"bold"
     },
 });
 

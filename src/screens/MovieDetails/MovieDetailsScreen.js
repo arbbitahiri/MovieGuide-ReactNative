@@ -93,6 +93,40 @@ function MovieDetailsScreen({navigation}) {
                 photo: require('../../images/cast/BlackPanther.jpg'),
                 "name": 'Chadwick Boseman',
             }
+        ],
+        similarMovies: [
+            {
+                "id": "2",
+                photo: require('../../images/similarMovies/WW84.jpg')
+            },
+            {
+                "id": "3",
+                photo: require('../../images/similarMovies/BatmanBegins.jpg')
+            },
+            {
+                "id": "4",
+                photo: require('../../images/similarMovies/CaptainMarvel.jpg')
+            },
+            {
+                "id": "5",
+                photo: require('../../images/similarMovies/DCJusticeLeague.jpg')
+            },
+            {
+                "id": "6",
+                photo: require('../../images/similarMovies/ManofSteel.jpg')
+            },
+            {
+                "id": "7",
+                photo: require('../../images/similarMovies/AntMan2.jpg')
+            },
+            {
+                "id": "8",
+                photo: require('../../images/similarMovies/ThorRagnarok.jpg')
+            },
+            {
+                "id": "9",
+                photo: require('../../images/similarMovies/SpiderMan.jpg')
+            },
         ]
     }
     return (
@@ -134,6 +168,20 @@ function MovieDetailsScreen({navigation}) {
                         horizontal={true}
                         data={state.cast}
                         renderItem={({item}) => <CastMovie item={item}/>}
+                        keyExtractor={item => item.id}
+                        showsHorizontalScrollIndicator={false}
+                    />
+                </View>
+                <View style={{flex: 1}}>
+                    <View style={styles.castView}>
+                        <Text style={{marginStart: 16, fontSize: 18}}>SIMILAR MOVIES</Text>
+                    </View>
+                </View>
+                <View style={{flex: 3}}>
+                    <FlatList
+                        horizontal={true}
+                        data={state.similarMovies}
+                        renderItem={({item}) => <SimilarMovies item={item}/>}
                         keyExtractor={item => item.id}
                         showsHorizontalScrollIndicator={false}
                     />

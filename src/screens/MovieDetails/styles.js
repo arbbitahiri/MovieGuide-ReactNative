@@ -21,8 +21,7 @@ const styles = StyleSheet.create({
         height: 250
     },
     imageViewSM: {
-        marginTop: -125,
-        marginStart: 25,
+        margin: 8,
         width: 150,
         height: 250
     },

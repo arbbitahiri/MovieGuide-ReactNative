@@ -1,0 +1,166 @@
+import React from "react";
+import {StatusBar} from "expo-status-bar";
+import {
+    View,
+    TouchableWithoutFeedback,
+    Text,
+    ScrollView,
+    FlatList,
+    SafeAreaView,
+    SectionList
+} from 'react-native';
+import {Image} from "react-native";
+import styles from './styles';
+import {FlatListSlider} from 'react-native-flatlist-slider';
+
+function Home({ item, navigation }) {
+    return (
+        <View style={styles.listItemHome}>
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('MovieDetails')} >
+                <Image
+                    style={styles.imageView}
+                    source={item.photo}
+                    resizeMode="cover"
+                />
+            </TouchableWithoutFeedback>
+        </View>
+    )
+}
+
+const images = [
+    {
+        banner: require('../../images/endgame.jpg'),
+        desc: 'Avengers: Endgame 2019'
+    },
+    {
+        banner: require('../../images/endgame.jpg'),
+        desc: 'Avengers: Endgame 2019'
+    },
+    {
+        banner: require('../../images/endgame.jpg'),
+        desc: 'Avengers: Endgame 2019'
+    },
+    {
+        banner: require('../../images/endgame.jpg'),
+        desc: 'Avengers: Endgame 2019'
+    },
+]
+
+function HomeScreen({navigation}) {
+    let state = {
+        title: 'Popular',
+        horizontal: true,
+        data: [
+            {
+                "id": "1",
+                photo: require('../../images/endgame_poster.jpg'),
+                "name": 'Avengers: Endgame',
+            },
+            {
+                "id": "6",
+                photo: require('../../images/endgame_poster.jpg'),
+                "name": 'Avengers: Endgame'
+            },
+            {
+                "id": "2",
+                photo: require('../../images/endgame_poster.jpg'),
+                "name": 'Avengers: Endgame'
+            },
+            {
+                "id": "3",
+                photo: require('../../images/endgame_poster.jpg'),
+                "name": 'Avengers: Endgame'
+            },
+            {
+                "id": "4",
+                photo: require('../../images/endgame_poster.jpg'),
+                "name": 'Avengers: Endgame'
+            },
+            {
+                "id": "5",
+                photo: require('../../images/endgame_poster.jpg'),
+                "name": 'Avengers: Endgame'
+            },
+        ]
+    }
+    return (
+        <View style={styles.container}>
+            <StatusBar style={'dark'} backgroundColor={'#B43343'} />
+            <ScrollView>
+                <View style={{flex: 4}}>
+                    <FlatListSlider
+                        data={images}
+                        imageKey={'banner'}
+                        local
+                        timer={10000}
+                        height={240}
+                        onPress={item => alert(JSON.stringify(item))}
+                        indicatorActiveWidth={30}
+                        indicatorActiveColor={'#15202B'}
+                        indicatorInActiveColor={'#ffffff'}
+                        indicatorContainerStyle={{position:'absolute', bottom: 20}}
+                        animation={true}
+                    />
+                </View>
+                <View style={{flex: 3}}>
+                    <View style={{flex:1}}>
+                        <Text style={styles.textView}>{state.title}</Text>
+                    </View>
+                    <View>
+                        <FlatList
+                            horizontal={true}
+                            data={state.data}
+                            renderItem={({item}) => <Home item={item} navigation={navigation}/>}
+                            keyExtractor={item => item.id}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                </View>
+                <View style={{flex: 3}}>
+                    <View style={{flex:1}}>
+                        <Text style={styles.textView}>now playing</Text>
+                    </View>
+                    <View style={{flex: 3}}>
+                        <FlatList
+                            horizontal={true}
+                            data={state.data}
+                            renderItem={({item}) => <Home item={item}/>}
+                            keyExtractor={item => item.id}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                </View>
+                <View style={{flex: 3}}>
+                    <View style={{flex:1}}>
+                        <Text style={styles.textView}>top rated</Text>
+                    </View>
+                    <View style={{flex: 3}}>
+                        <FlatList
+                            horizontal={true}
+                            data={state.data}
+                            renderItem={({item}) => <Home item={item}/>}
+                            keyExtractor={item => item.id}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                </View>
+                <View style={{flex: 3}}>
+                    <View style={{flex:1}}>
+                        <Text style={styles.textView}>upcoming</Text>
+                    </View>
+                    <View style={{flex: 3}}>
+                        <FlatList
+                            horizontal={true}
+                            data={state.data}
+                            renderItem={({item}) => <Home item={item}/>}
+                            keyExtractor={item => item.id}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                </View>
+            </ScrollView>
+        </View>
+    )
+}
+
+export default HomeScreen;

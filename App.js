@@ -1,14 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {NavigationContainer} from "@react-navigation/native";
-import HomeScreen from './src/Home/HomeScreen'
-import SearchScreen from './src/Search/SearchScreen'
-import FavoriteScreen from './src/Favorite/FavoriteScreen'
-import SettingsScreen from './src/Settings/SettingsScreen'
-import MovieDetailsScreen from './src/MovieDetails/MovieDetailsScreen'
+
+import NavigationStack from "./src/components/NavigationStack";
+import SearchScreen from './src/screens/Search/SearchScreen'
+import FavoriteScreen from './src/screens/Favorite/FavoriteScreen'
+import SettingsScreen from './src/screens/Settings/SettingsScreen'
 
 export default function App() {
   return (
@@ -30,7 +28,7 @@ function MyTabs() {
       >
           <Tab.Screen
               name="Home"
-              component={HomeScreen}
+              component={NavigationStack}
               options={{
                   tabBarLabel: 'Home',
                   tabBarIcon: ({color}) => (
@@ -65,25 +63,6 @@ function MyTabs() {
                       <MaterialCommunityIcons name="settings" color={color} size={26} />
                   ),
               }}/>
-          {/*<Tab.Screen*/}
-          {/*    name="MovieDetails"*/}
-          {/*    component={MovieDetailsScreen}*/}
-          {/*    options={{*/}
-          {/*        tabBarLabel: 'Details',*/}
-          {/*        tabBarIcon: ({color}) => (*/}
-          {/*            <MaterialCommunityIcons name="more" color={color} size={26} />*/}
-          {/*        ),*/}
-          {/*    }}*/}
-          {/*/>*/}
       </Tab.Navigator>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#B43343',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

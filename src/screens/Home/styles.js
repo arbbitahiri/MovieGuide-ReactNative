@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#15202B',
         alignItems: 'flex-start',
         justifyContent: 'center',
-        marginTop: Constants.statusBarHeight,
+        marginTop: Constants.statusBarHeight
     },
     listItemHome:{
         margin:5,

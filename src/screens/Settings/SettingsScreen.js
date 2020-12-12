@@ -6,7 +6,7 @@ import {
     Image
 } 
 from "react-native";
-import styles from "../Settings/styles";
+import styles from "./styles";
 
 class SettingsScreen extends React.Component {
     render(){

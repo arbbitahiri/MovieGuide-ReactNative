@@ -8,7 +8,7 @@ import {
     Image
 } from "react-native";
 import {StatusBar} from "expo-status-bar";
-import styles from '../Search/styles'
+import styles from './styles'
 
 function ItemSearch({ item }) {
     return (
@@ -30,98 +30,98 @@ class SearchScreen extends React.Component {
             {
                 "id": "1",
                 "name": "Avengers: Endgame",
-                photo: require('../images/endgamesize200.jpg'),
+                photo: require('../../images/endgamesize200.jpg'),
                 "date": "2019-03-06",
                 "rating": "8.9/10"
             },
             {
                 "id": "2",
                 "name": "Avengers: Endgame",
-                photo: require('../images/endgamesize200.jpg'),
+                photo: require('../../images/endgamesize200.jpg'),
                 "date": "2019-03-06",
                 "rating": "8.9/10"
             },
             {
                 "id": "3",
                 "name": "Avengers: Endgame",
-                photo: require('../images/endgamesize200.jpg'),
+                photo: require('../../images/endgamesize200.jpg'),
                 "date": "2019-03-06",
                 "rating": "8.9/10"
             },
             {
                 "id": "4",
                 "name": "Avengers: Endgame",
-                photo: require('../images/endgamesize200.jpg'),
+                photo: require('../../images/endgamesize200.jpg'),
                 "date": "2019-03-06",
                 "rating": "8.9/10"
             },
             {
                 "id": "5",
                 "name": "Avengers: Endgame",
-                photo: require('../images/endgamesize200.jpg'),
+                photo: require('../../images/endgamesize200.jpg'),
                 "date": "2019-03-06",
                 "rating": "8.9/10"
             },
             {
                 "id": "7",
                 "name": "Avengers: Endgame",
-                photo: require('../images/endgamesize200.jpg'),
+                photo: require('../../images/endgamesize200.jpg'),
                 "date": "2019-03-06",
                 "rating": "8.9/10"
             },
             {
                 "id": "8",
                 "name": "Avengers: Endgame",
-                photo: require('../images/endgamesize200.jpg'),
+                photo: require('../../images/endgamesize200.jpg'),
                 "date": "2019-03-06",
                 "rating": "8.9/10"
             },
             {
                 "id": "9",
                 "name": "Avengers: Endgame",
-                photo: require('../images/endgamesize200.jpg'),
+                photo: require('../../images/endgamesize200.jpg'),
                 "date": "2019-03-06",
                 "rating": "8.9/10"
             },
             {
                 "id": "10",
                 "name": "Avengers: Endgame",
-                photo: require('../images/endgamesize200.jpg'),
+                photo: require('../../images/endgamesize200.jpg'),
                 "date": "2019-03-06",
                 "rating": "8.9/10"
             },
             {
                 "id": "11",
                 "name": "Avengers: Endgame",
-                photo: require('../images/endgamesize200.jpg'),
+                photo: require('../../images/endgamesize200.jpg'),
                 "date": "2019-03-06",
                 "rating": "8.9/10"
             },
             {
                 "id": "12",
                 "name": "Avengers: Endgame",
-                photo: require('../images/endgamesize200.jpg'),
+                photo: require('../../images/endgamesize200.jpg'),
                 "date": "2019-03-06",
                 "rating": "8.9/10"
             },
             {
                 "id": "13",
                 "name": "Avengers: Endgame",
-                photo: require('../images/endgamesize200.jpg'),
+                photo: require('../../images/endgamesize200.jpg'),
                 "date": "2019-03-06",
                 "rating": "8.9/10"
             },
             {
                 "id": "14",
                 "name": "Avengers: Endgame",
-                photo: require('../images/endgamesize200.jpg'),
+                photo: require('../../images/endgamesize200.jpg'),
                 "date": "2019-03-06",
                 "rating": "8.9/10"
             },
             {
                 "id": "15",
                 "name": "Avengers: Endgame",
-                photo: require('../images/endgamesize200.jpg'),
+                photo: require('../../images/endgamesize200.jpg'),
                 "date": "2019-03-06",
                 "rating": "8.9/10"
             }

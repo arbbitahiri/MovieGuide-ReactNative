@@ -3,7 +3,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {NavigationContainer} from "@react-navigation/native";
 
-import NavigationStack from "./src/components/NavigationStack";
+import NavigationStackHome from "./src/components/NavigationStackHome";
+import NavigationStackFavorites from "./src/components/NavigationStackFavorites";
+import NavigationStackSearch from "./src/components/NavigationStackSearch";
 import SearchScreen from './src/screens/Search/SearchScreen'
 import FavoriteScreen from './src/screens/Favorite/FavoriteScreen'
 import SettingsScreen from './src/screens/Settings/SettingsScreen'
@@ -28,7 +30,7 @@ function MyTabs() {
       >
           <Tab.Screen
               name="Home"
-              component={NavigationStack}
+              component={NavigationStackHome}
               options={{
                   tabBarLabel: 'Home',
                   tabBarIcon: ({color}) => (
@@ -38,7 +40,7 @@ function MyTabs() {
           />
           <Tab.Screen
               name="Search"
-              component={SearchScreen}
+              component={NavigationStackSearch}
               options={{
                   tabBarLabel: 'Search',
                   tabBarIcon: ({color}) => (
@@ -47,7 +49,7 @@ function MyTabs() {
               }}/>
           <Tab.Screen
               name="Favorites"
-              component={FavoriteScreen}
+              component={NavigationStackFavorites}
               options={{
                   tabBarLabel: 'Favorites',
                   tabBarIcon: ({color}) => (

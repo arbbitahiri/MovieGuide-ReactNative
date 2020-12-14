@@ -6,7 +6,8 @@ import {
     Text,
     ScrollView,
     FlatList,
-    Linking
+    Linking,
+    SafeAreaView
 } from 'react-native';
 import styles from './styles'
 import {FAB} from "react-native-paper";
@@ -151,6 +152,7 @@ function MovieDetailsScreen({navigation}) {
             }
         ]
     }
+
     return (
         <View style={styles.container}>
             <ScrollView>

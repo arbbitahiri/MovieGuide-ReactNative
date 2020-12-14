@@ -14,7 +14,7 @@ function ItemSearch({ item, navigation }) {
     return (
         <View style={styles.listItemFav}>
             <StatusBar style={'dark'} backgroundColor={'#B43343'} />
-            <TouchableWithoutFeedback onPress={() => navigation.navigate('MovieDetails')} >
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('MovieDetailsSearch')} >
                 <Image
                     source={item.photo}
                     style={styles.moviesImageSearch}

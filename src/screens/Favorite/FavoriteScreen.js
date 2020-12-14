@@ -16,7 +16,7 @@ import styles from "./styles"
 function ItemFavorites({ item, navigation }) {
     return (
         <View style={styles.listItemFav}>
-            <TouchableWithoutFeedback onPress={() => navigation.navigate('MovieDetails')} >
+            <TouchableWithoutFeedback onPress={() => navigation.navigate('MovieDetailsFavorites')} >
                 <Image
                     style={styles.imageViewFav}
                     source={item.photo}

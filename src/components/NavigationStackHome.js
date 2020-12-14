@@ -7,7 +7,7 @@ const Stack = createStackNavigator();
 import HomeScreen from "../screens/Home/HomeScreen";
 import MovieDetailsScreen from "../screens/MovieDetails/MovieDetailsScreen";
 
-function NavigationStack() {
+function NavigationStackHome() {
     return (
             <Stack.Navigator initialRouteName="Home">
                 <Stack.Screen
@@ -30,4 +30,4 @@ function NavigationStack() {
     );
 };
 
-export default NavigationStack;
+export default NavigationStackHome;

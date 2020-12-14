@@ -1,5 +1,8 @@
-import {StyleSheet, Text, View} from "react-native";
-import Constants from 'expo-constants';
+import {StyleSheet, Dimensions} from "react-native";
+import Constants from "expo-constants";
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     container: {
@@ -11,6 +14,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginTop: Constants.statusBarHeight
     },
+    flatListMain: {
+        marginBottom: 8,
+    },
     listItemHome:{
         margin:5,
         padding:5,
@@ -21,9 +27,34 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         // borderRadius:5
     },
+    listItemHomeMain:{
+        backgroundColor:"#15202B",
+        width: windowWidth,
+        flex:1,
+        alignSelf:"center",
+        flexDirection:"row",
+        // borderRadius:5
+    },
     movieItemHome: {
         flex: 1,
         flexDirection: "column"
+    },
+    mainImageView: {
+        width: windowWidth,
+        height: 250,
+    },
+    mainTextView: {
+        color: '#b43343',
+        fontSize: 14,
+        alignSelf:"center",
+    },
+    textViewMain: {
+        color: '#B43343',
+        marginTop: -100,
+        marginLeft: 16,
+        marginRight: 16,
+        marginBottom: 8,
+        fontSize: 16,
     },
     textView: {
         color: '#B43343',
@@ -31,7 +62,7 @@ const styles = StyleSheet.create({
         marginLeft: 16,
         marginRight: 16,
         marginBottom: 8,
-        fontSize: 14,
+        fontSize: 16,
     },
     imageView: {
         width: 150,

@@ -138,6 +138,7 @@ function HomeScreen({navigation}) {
             }
         ]
     }
+
     return (
         <View style={styles.container}>
             <StatusBar style={'dark'} backgroundColor={'#B43343'} />

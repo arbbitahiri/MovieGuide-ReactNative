@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
         marginTop: Constants.statusBarHeight,
     },
     textView: {
-        color: 'lightblue',
+        color: '#B43343',
         marginTop: 55,
         marginLeft: 5,
         marginRight: 5,
@@ -27,15 +27,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#B43343',
     },
     imageView: {
-
         width: '50%',
         height: 100 ,
         margin: 7,
         borderRadius : 7
-
     },
     ktobashk: {
-        color: 'lightblue',
+        color: '#B43343',
         fontSize: 23,
         marginTop: 30,
         marginLeft: -30,

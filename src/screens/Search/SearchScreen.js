@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     Text,
     View,
@@ -90,6 +90,7 @@ function SearchScreen({navigation}) {
             />
         )
     };
+
         return (
             <View style={styles.containerSearch}>
                 <View style={styles.searchDesign}>

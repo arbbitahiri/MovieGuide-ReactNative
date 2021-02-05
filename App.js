@@ -3,9 +3,9 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {NavigationContainer} from "@react-navigation/native";
 
-import NavigationStackHome from "./src/components/NavigationStackHome";
-import NavigationStackFavorites from "./src/components/NavigationStackFavorites";
-import NavigationStackSearch from "./src/components/NavigationStackSearch";
+import NavigationStackHome from "./src/navigation/NavigationStackHome";
+import NavigationStackFavorites from "./src/navigation/NavigationStackFavorites";
+import NavigationStackSearch from "./src/navigation/NavigationStackSearch";
 import SearchScreen from './src/screens/Search/SearchScreen'
 import FavoriteScreen from './src/screens/Favorite/FavoriteScreen'
 import SettingsScreen from './src/screens/Settings/SettingsScreen'

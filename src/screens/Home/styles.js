@@ -68,6 +68,11 @@ const styles = StyleSheet.create({
         width: 150,
         height: 250
     },
+    imageViewSlider: {
+        marginLeft: -10,
+        width: windowWidth,
+        height: 300
+    },
     linearGradient: {
         flex: 1,
         paddingLeft: 15,
@@ -75,8 +80,10 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     itemText: {
-        color: '#B43343',
-        marginTop: 5,
+        color: '#FFFFFF',
+        marginTop: 260,
+        fontSize: 20,
+        textAlign: "center"
     },
     sectionHeader: {
         fontWeight: '800',

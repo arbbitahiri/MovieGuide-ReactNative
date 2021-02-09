@@ -15,10 +15,12 @@ import {
     apiGetMovie,
     apiGetMovieCast,
     apiGetMovieSimilarMovies,
-    apiGetMovieTrailers
+    apiGetMovieTrailers,
+    apiGetMovieGenres
 } from "../../services/apiLinks";
 import makePhotoUrl from '../../components/makePhotoUrl'
 import openYouTubeUrl from '../../components/openYouTubeUrl'
+import genre from '../../utils/genre.json'
 
 class MovieDetailsScreen extends React.Component {
     constructor(props) {
@@ -29,17 +31,21 @@ class MovieDetailsScreen extends React.Component {
             movie: [],
             cast: [],
             similar_movies: [],
-            trailers: []
+            trailers: [],
+            movie_genre: [],
+            genre_name: []
         }
     }
 
     componentDidMount() {
-        const { movie_id } = this.props.route.params;
+        const { movie_id, genre_ids } = this.props.route.params;
         
         this.fetchMovie(movie_id);
         this.fetchCast(movie_id);
         this.fetchSimilarMovies(movie_id);
         this.fetchTrailers(movie_id);
+        this.convertGenres(genre_ids)
+        alert(genre[0])
     }
 
     fetchMovie = async(id) => {
@@ -90,32 +96,39 @@ class MovieDetailsScreen extends React.Component {
         }
     }
 
+    convertGenres = (genre_ids) => {
+        for (let index = 0; index < genre_ids.length; index++) {
+            const element = genre_ids[index];
+            
+        }
+    }
+
     renderItemCast = ({ item }) => {
-        return (
-            <View style={styles.listItemHome}>
-                <Image
-                    style={styles.imageViewCast}
-                    source={{ uri: makePhotoUrl(item.profile_path) }}
-                    resizeMode="cover"
-                />
-                <View style={{alignItems: "center"}}>
-                    <Text style={styles.castNames}>{item.name}</Text>
+            return (
+                <View style={styles.listItemHome}>
+                    <Image
+                        style={styles.imageViewCast}
+                        source={{ uri: makePhotoUrl(item.profile_path) }}
+                        resizeMode="cover"
+                    />
+                    <View style={{alignItems: "center"}}>
+                        <Text style={styles.castNames}>{item.name}</Text>
+                    </View>
+                    <View style={{alignItems: "center"}}>
+                        <Text style={styles.castNames}>AS</Text>
+                    </View>
+                    <View style={{alignItems: "center"}}>
+                        <Text style={styles.castNames}>{item.character}</Text>
+                    </View>
                 </View>
-                <View style={{alignItems: "center"}}>
-                    <Text style={styles.castNames}>AS</Text>
-                </View>
-                <View style={{alignItems: "center"}}>
-                    <Text style={styles.castNames}>{item.character}</Text>
-                </View>
-            </View>
-        );
+            );
     }
 
     renderItemSimilarMovies = ({ item }) => {
         return (
             <View style={styles.listItemHome}>
                 <TouchableWithoutFeedback onPress={() =>
-                    this.props.navigation.navigate('MovieDetails', { movie_id: item.id })} >
+                    this.props.navigation.push('MovieDetails', { movie_id: item.id })} >
                     <Image
                         style={styles.imageViewSM}
                         source={{ uri: makePhotoUrl(item.poster_path) }}
@@ -137,6 +150,7 @@ class MovieDetailsScreen extends React.Component {
     }
 
     render() {
+        const { genres } = this.state.movie_genre;
         return (
             <View style={styles.container}>
                 <ScrollView>
@@ -152,7 +166,12 @@ class MovieDetailsScreen extends React.Component {
                         <Text style={styles.movieTitle}>{this.state.movie.original_title}</Text>
                         <Text style={styles.releaseDate}>{this.state.movie.release_date}</Text>
                         <Text style={styles.rating}>{this.state.movie.vote_average}/10</Text>
-                        <Text style={styles.genre}>{this.state.movie.id}</Text>
+                        {genres ? (
+                            <Text style={styles.genre}>
+                                {genres.map((genre, index) => 
+                                    index == genres.length - 1 ? genre.name : `${genre.name} ‧`)}
+                            </Text>
+                        ) : null}
                         <FAB
                             style={styles.fabMD}
                             small

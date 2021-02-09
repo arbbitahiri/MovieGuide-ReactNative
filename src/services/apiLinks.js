@@ -28,6 +28,8 @@ const apiGetMovieTrailers = (movie_id) => {
     )
 }
 
+const apiGetMovieGenres = "https://api.themoviedb.org/3/genre/movie/list?api_key=81229d17288cd3c3a979724d4d5c9cae&language=en-US";
+
 export {
     apiPopular,
     apiUpcoming,
@@ -37,5 +39,6 @@ export {
     apiGetMovie,
     apiGetMovieCast,
     apiGetMovieSimilarMovies,
-    apiGetMovieTrailers
+    apiGetMovieTrailers,
+    apiGetMovieGenres
 }

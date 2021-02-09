@@ -56,7 +56,7 @@ class HomeScreen extends React.Component {
         return (
             <View style={styles.listItemHome}>
                 <TouchableWithoutFeedback onPress={() =>
-                    this.props.navigation.navigate('MovieDetails', { movie_id: item.id })} >
+                    this.props.navigation.navigate('MovieDetails', { movie_id: item.id, genre_ids: item.genre_ids })} >
                     <Image
                         style={styles.imageView}
                         source={{ uri: makePhotoUrl(item.poster_path) }}

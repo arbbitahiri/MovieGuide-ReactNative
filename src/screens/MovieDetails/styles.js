@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0,
         marginTop: 260,
-        marginEnd: 40,
+        marginEnd: 35,
         color: '#B43343',
         fontSize: 18,
         textAlign: 'center'
@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
     releaseDate: {
         position: 'absolute',
         right: 0,
-        marginTop: 295,
-        marginEnd: 115,
+        marginTop: 330,
+        marginEnd: 25,
         color: '#B43343',
         fontSize: 15
     },
@@ -54,14 +54,15 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0,
         marginTop: 330,
-        marginEnd: 160,
+        marginEnd: 190,
         color: '#B43343',
         fontSize: 15
     },
     genre: {
         position: 'absolute',
+        fontStyle: 'italic',
         right: 0,
-        marginTop: 330,
+        marginTop: 295,
         marginEnd: 25,
         color: '#B43343',
         fontSize: 15
@@ -79,7 +80,7 @@ const styles = StyleSheet.create({
         marginTop: 185,
     },
     desc: {
-        marginTop: 8,
+        marginTop: 16,
         marginStart: 16,
         marginEnd: 16,
         marginBottom: 8,

@@ -15,12 +15,22 @@ import {
     apiGetMovie,
     apiGetMovieCast,
     apiGetMovieSimilarMovies,
-    apiGetMovieTrailers,
-    apiGetMovieGenres
+    apiGetMovieTrailers
 } from "../../services/apiLinks";
 import makePhotoUrl from '../../components/makePhotoUrl'
 import openYouTubeUrl from '../../components/openYouTubeUrl'
 import genre from '../../utils/genre.json'
+
+function convertToDate(date) {
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+    const newDate = new Date(date);
+
+    return (
+        `${newDate.getDate() + 1}‧${monthNames[newDate.getMonth()]}‧${newDate.getFullYear()}`
+    );
+}
 
 class MovieDetailsScreen extends React.Component {
     constructor(props) {
@@ -38,14 +48,12 @@ class MovieDetailsScreen extends React.Component {
     }
 
     componentDidMount() {
-        const { movie_id, genre_ids } = this.props.route.params;
+        const { movie_id } = this.props.route.params;
         
         this.fetchMovie(movie_id);
         this.fetchCast(movie_id);
         this.fetchSimilarMovies(movie_id);
         this.fetchTrailers(movie_id);
-        this.convertGenres(genre_ids)
-        alert(genre[0])
     }
 
     fetchMovie = async(id) => {
@@ -96,13 +104,6 @@ class MovieDetailsScreen extends React.Component {
         }
     }
 
-    convertGenres = (genre_ids) => {
-        for (let index = 0; index < genre_ids.length; index++) {
-            const element = genre_ids[index];
-            
-        }
-    }
-
     renderItemCast = ({ item }) => {
             return (
                 <View style={styles.listItemHome}>
@@ -150,7 +151,7 @@ class MovieDetailsScreen extends React.Component {
     }
 
     render() {
-        const { genres } = this.state.movie_genre;
+        const { genre_ids } = this.props.route.params;
         return (
             <View style={styles.container}>
                 <ScrollView>
@@ -164,14 +165,12 @@ class MovieDetailsScreen extends React.Component {
                             resizeMode="cover"
                         />
                         <Text style={styles.movieTitle}>{this.state.movie.original_title}</Text>
-                        <Text style={styles.releaseDate}>{this.state.movie.release_date}</Text>
+                        <Text style={styles.genre}>
+                            {genre_ids.map((item, index) => 
+                                index == item.length - 1 ? genre[item].name : `${genre[item].name} `)}
+                        </Text>
+                        <Text style={styles.releaseDate}>{convertToDate(this.state.movie.release_date)}</Text>
                         <Text style={styles.rating}>{this.state.movie.vote_average}/10</Text>
-                        {genres ? (
-                            <Text style={styles.genre}>
-                                {genres.map((genre, index) => 
-                                    index == genres.length - 1 ? genre.name : `${genre.name} ‧`)}
-                            </Text>
-                        ) : null}
                         <FAB
                             style={styles.fabMD}
                             small

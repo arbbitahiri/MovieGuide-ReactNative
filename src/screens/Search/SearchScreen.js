@@ -2,118 +2,96 @@ import React, {useState} from "react";
 import {
     Text,
     View,
-    TextInput,
+    ActivityIndicator,
     FlatList,
     TouchableWithoutFeedback,
     Image
 } from "react-native";
 import {StatusBar} from "expo-status-bar";
-import styles from './styles'
+import styles from './styles';
 
-function ItemSearch({ item, navigation }) {
-    return (
-        <View style={styles.listItemFav}>
-            <StatusBar style={'dark'} backgroundColor={'#B43343'} />
-            <TouchableWithoutFeedback onPress={() => navigation.navigate('MovieDetailsSearch')} >
-                <Image
-                    source={item.photo}
-                    style={styles.moviesImageSearch}
-                    resizeMode="cover"
-                />
-            </TouchableWithoutFeedback>
-            <View style={{alignItems: "center"}}>
-                <Text style={styles.textDesignSearch}>{item.name}</Text>
-            </View>
-        </View>
-    );
-}
+import { apiSearchMovies } from "../../services/apiLinks";
+import { Searchbar } from "react-native-paper";
+import makePhotoUrl from '../../components/makePhotoUrl'
 
-function SearchScreen({navigation}) {
-    let state = {
-        searchExamples: [
-            {
-                "id": "9",
-                photo: require('../../images/endgame_poster.jpg'),
-                "name": 'Thor: Ragnarok'
-            },
-            {
-                "id": "1",
-                photo: require('../../images/similarMovies/WW84.jpg'),
-                "name": 'Wonder Woman 1984',
-            },
-            {
-                "id": "2",
-                photo: require('../../images/similarMovies/CaptainMarvel.jpg'),
-                "name": 'Captain Marvel'
-            },
-            {
-                "id": "3",
-                photo: require('../../images/similarMovies/DCJusticeLeague.jpg'),
-                "name": 'DC Justice League',
-            },
-            {
-                "id": "4",
-                photo: require('../../images/similarMovies/ManofSteel.jpg'),
-                "name": 'Man of Steel'
-            },
-            {
-                "id": "5",
-                photo: require('../../images/similarMovies/SpiderMan.jpg'),
-                "name": 'Spider Man'
-            },
-            {
-                "id": "6",
-                photo: require('../../images/similarMovies/BatmanBegins.jpg'),
-                "name": 'Batman: Begins'
-            },
-            {
-                "id": "7",
-                photo: require('../../images/similarMovies/AntMan2.jpg'),
-                "name": 'Ant-Man 2'
-            },
-            {
-                "id": "8",
-                photo: require('../../images/similarMovies/ThorRagnarok.jpg'),
-                "name": 'Thor: Ragnarok'
-            },
-        ]
+class SearchScreen extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loading: true,
+            movie_results: [],
+            search_movie: "",
+        }
     }
 
-    const flatListItemSeparator = () => {
-        return (
-            <View
-                style={{
-                    height: 5,
-                    width: "100%",
-                    backgroundColor: "#15202B",
-                }}
-            />
-        )
-    };
+    handleSearch = (text) => {
+        this.setState({ search_movie: text });
+    }
 
+    onSubmitEditing = async() => {
+        const { search_movie } = this.state;
+
+        if (search_movie !== "") {
+            this.setState({ loading: false });
+            try {
+                const response = await fetch(apiSearchMovies(search_movie));
+                const json = await response.json();
+                this.setState({ movie_results: json.results });
+            } catch(error) {
+                console.log(error);
+            } finally {
+                this.setState({ loading: false })
+            }
+        }
+    }
+
+    renderMovies = ({ item }) => {
+        return (
+            <View style={styles.listItemFav}>
+                <StatusBar style={'dark'} backgroundColor={'#B43343'} />
+                <TouchableWithoutFeedback onPress={() =>
+                    this.props.navigation.navigate('MovieDetails', { movie_id: item.id, genre_ids: item.genre_ids })} >
+                    <Image
+                        source={{ uri: makePhotoUrl(item.poster_path) }}
+                        style={styles.moviesImageSearch}
+                        resizeMode="cover"
+                    />
+                </TouchableWithoutFeedback>
+                <View style={{alignItems: "center"}}>
+                    <Text style={styles.textDesignSearch}>{item.original_title}</Text>
+                </View>
+            </View>
+        );
+    }
+
+    render() {
+        const { search_movie } = this.state;
         return (
             <View style={styles.containerSearch}>
                 <View style={styles.searchDesign}>
-                    <TextInput
+                    <Searchbar
+                        placeholder="Search for a movie..."
                         autoCapitalize="none"
                         autoCorrect={false}
                         clearButtonMode="always"
-                        // value={query}
-                        // onChangeText={queryText => handleSearch(queryText)}
-                        placeholder="Search for a movie..."
-                        style={styles.text} />
+                        onChangeText={this.handleSearch}
+                        onSubmitEditing={this.onSubmitEditing}
+                        value={search_movie}
+                        style={styles.text}
+                        inputStyle={{color: '#B43343'}} />
                 </View>
                 <FlatList
                     style={{flex: 1}}
-                    data={state.searchExamples}
-                    renderItem={({item}) => <ItemSearch item={item} navigation={navigation}/> }
-                    keyExtractor={item => item.id}
+                    data={this.state.movie_results}
+                    renderItem={this.renderMovies}
+                    keyExtractor={(item, index) => index.toString()}
                     horizontal={false}
                     numColumns={2}
-                    ItemSeparatorComponent = { flatListItemSeparator }
                 />
             </View>
         )
+    }
 }
 
 export default SearchScreen;

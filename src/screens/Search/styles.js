@@ -1,5 +1,7 @@
-import {StyleSheet} from "react-native";
+import {StyleSheet, Dimensions} from "react-native";
 import Constants from "expo-constants";
+
+const windowWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     containerSearch: {
@@ -44,12 +46,20 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 15,
         color: '#fff',
-        backgroundColor: '#15202B',
-        paddingHorizontal: 10
+        backgroundColor: '#253341',
+        paddingHorizontal: 10,
+        width: windowWidth - 20
     },
     moviesImageSearch: {
         width: 200,
         height: 270
+    },
+    loader: {
+        flex:1,
+        flexDirection:'row',
+        alignItems:'center',
+        backgroundColor: '#15202B',
+        justifyContent:'center'
     }
 });
 

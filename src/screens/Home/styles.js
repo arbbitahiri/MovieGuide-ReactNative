@@ -92,6 +92,13 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 5,
     },
+    loader: {
+        flex:1,
+        flexDirection:'row',
+        alignItems:'center',
+        backgroundColor: '#15202B',
+        justifyContent:'center'
+    }
 });
 
 export default styles;

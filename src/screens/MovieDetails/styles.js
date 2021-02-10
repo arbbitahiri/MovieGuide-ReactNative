@@ -35,9 +35,10 @@ const styles = StyleSheet.create({
     },
     movieTitle: {
         position: 'absolute',
-        right: 0,
+        left: 0,
         marginTop: 260,
         marginEnd: 35,
+        marginStart: 185,
         color: '#B43343',
         fontSize: 18,
         textAlign: 'center'
@@ -52,18 +53,19 @@ const styles = StyleSheet.create({
     },
     rating: {
         position: 'absolute',
-        right: 0,
+        left: 0,
         marginTop: 330,
-        marginEnd: 190,
+        marginStart: 185,
         color: '#B43343',
         fontSize: 15
     },
     genre: {
         position: 'absolute',
         fontStyle: 'italic',
-        right: 0,
+        left: 0,
         marginTop: 295,
         marginEnd: 25,
+        marginStart: 185,
         color: '#B43343',
         fontSize: 15
     },
@@ -105,6 +107,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight:"bold"
     },
+    loader: {
+        flex:1,
+        flexDirection:'row',
+        alignItems:'center',
+        backgroundColor: '#15202B',
+        justifyContent:'center'
+    }
 });
 
 export default styles;

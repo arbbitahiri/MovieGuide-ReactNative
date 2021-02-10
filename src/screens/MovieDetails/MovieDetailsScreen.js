@@ -7,6 +7,7 @@ import {
     ScrollView,
     FlatList,
     Linking,
+    ActivityIndicator 
 } from 'react-native';
 
 import styles from './styles'
@@ -129,12 +130,12 @@ class MovieDetailsScreen extends React.Component {
         return (
             <View style={styles.listItemHome}>
                 <TouchableWithoutFeedback onPress={() =>
-                    this.props.navigation.push('MovieDetails', { movie_id: item.id })} >
-                    <Image
-                        style={styles.imageViewSM}
-                        source={{ uri: makePhotoUrl(item.poster_path) }}
-                        resizeMode="cover"
-                    />
+                    this.props.navigation.push('MovieDetails', { movie_id: item.id, genre_ids: item.genre_ids })} >
+                        <Image
+                            style={styles.imageViewSM}
+                            source={{ uri: makePhotoUrl(item.poster_path) }}
+                            resizeMode="cover"
+                        />
                 </TouchableWithoutFeedback>
             </View>
         );
@@ -152,80 +153,89 @@ class MovieDetailsScreen extends React.Component {
 
     render() {
         const { genre_ids } = this.props.route.params;
-        return (
-            <View style={styles.container}>
-                <ScrollView>
-                    <View style={{flex: 4}}>
-                        <Image
-                            source={{ uri: makePhotoUrl(this.state.movie.backdrop_path, "w1280") }}
-                            style={styles.imagePoster}/>
-                        <Image
-                            style={styles.imageCover}
-                            source={{ uri: makePhotoUrl(this.state.movie.poster_path) }}
-                            resizeMode="cover"
-                        />
-                        <Text style={styles.movieTitle}>{this.state.movie.original_title}</Text>
-                        <Text style={styles.genre}>
-                            {genre_ids.map((item, index) => 
-                                index == item.length - 1 ? genre[item].name : `${genre[item].name} `)}
-                        </Text>
-                        <Text style={styles.releaseDate}>{convertToDate(this.state.movie.release_date)}</Text>
-                        <Text style={styles.rating}>{this.state.movie.vote_average}/10</Text>
-                        <FAB
-                            style={styles.fabMD}
-                            small
-                            icon="plus"
-                            onPress={() => alert('Added to favorites!')}
-                        />
-                    </View>
-                    <View style={{flex: 1}}>
-                        <Text style={styles.desc}>{this.state.movie.overview}</Text>
-                    </View>
-                    <View style={{flex: 1}}>
-                        <View style={styles.castView}>
-                            <Text style={{marginStart: 16, fontSize: 16}}>CAST</Text>
+
+        if (this.state.loading) {
+            return (
+                <View style={styles.loader}>
+                    <ActivityIndicator size="small" color="#B43343" />
+                </View>
+            )
+        } else {
+            return (
+                <View style={styles.container}>
+                    <ScrollView>
+                        <View style={{flex: 4}}>
+                            <Image
+                                source={{ uri: makePhotoUrl(this.state.movie.backdrop_path, "w1280") }}
+                                style={styles.imagePoster}/>
+                            <Image
+                                style={styles.imageCover}
+                                source={{ uri: makePhotoUrl(this.state.movie.poster_path) }}
+                                resizeMode="cover"
+                            />
+                            <Text style={styles.movieTitle}>{this.state.movie.original_title}</Text>
+                            <Text style={styles.genre}>
+                                {genre_ids.map((item, index) => 
+                                    index == item.length - 1 ? genre[item].name : `${genre[item].name} `)}
+                            </Text>
+                            <Text style={styles.releaseDate}>{convertToDate(this.state.movie.release_date)}</Text>
+                            <Text style={styles.rating}>{this.state.movie.vote_average}/10</Text>
+                            <FAB
+                                style={styles.fabMD}
+                                small
+                                icon="plus"
+                                onPress={() => alert('Added to favorites!')}
+                            />
                         </View>
-                    </View>
-                    <View style={{flex: 3}}>
-                        <FlatList
-                            horizontal={true}
-                            data={this.state.cast}
-                            renderItem={this.renderItemCast}
-                            keyExtractor={item => item.id}
-                            showsHorizontalScrollIndicator={false}
-                        />
-                    </View>
-                    <View style={{flex: 1}}>
-                        <View style={styles.castView}>
-                            <Text style={{marginStart: 16, fontSize: 16}}>SIMILAR MOVIES</Text>
+                        <View style={{flex: 1}}>
+                            <Text style={styles.desc}>{this.state.movie.overview}</Text>
                         </View>
-                    </View>
-                    <View style={{flex: 3}}>
-                        <FlatList
-                            horizontal={true}
-                            data={this.state.similar_movies}
-                            renderItem={this.renderItemSimilarMovies}
-                            keyExtractor={item => item.id}
-                            showsHorizontalScrollIndicator={false}
-                        />
-                    </View>
-                    <View style={{flex: 1}}>
-                        <View style={styles.castView}>
-                            <Text style={{marginStart: 16, fontSize: 16}}>TRAILERS</Text>
+                        <View style={{flex: 1}}>
+                            <View style={styles.castView}>
+                                <Text style={{marginStart: 16, fontSize: 16}}>CAST</Text>
+                            </View>
                         </View>
-                    </View>
-                    <View style={{flex: 3}}>
-                        <FlatList
-                            horizontal={false}
-                            data={this.state.trailers}
-                            renderItem={this.renderItemTrailer}
-                            keyExtractor={item => item.id}
-                            showsHorizontalScrollIndicator={false}
-                        />
-                    </View>
-                </ScrollView>
-            </View>
-        );
+                        <View style={{flex: 3}}>
+                            <FlatList
+                                horizontal={true}
+                                data={this.state.cast}
+                                renderItem={this.renderItemCast}
+                                keyExtractor={(item, index) => index.toString()}
+                                showsHorizontalScrollIndicator={false}
+                            />
+                        </View>
+                        <View style={{flex: 1}}>
+                            <View style={styles.castView}>
+                                <Text style={{marginStart: 16, fontSize: 16}}>SIMILAR MOVIES</Text>
+                            </View>
+                        </View>
+                        <View style={{flex: 3}}>
+                            <FlatList
+                                horizontal={true}
+                                data={this.state.similar_movies}
+                                renderItem={this.renderItemSimilarMovies}
+                                keyExtractor={(item, index) => index.toString()}
+                                showsHorizontalScrollIndicator={false}
+                            />
+                        </View>
+                        <View style={{flex: 1}}>
+                            <View style={styles.castView}>
+                                <Text style={{marginStart: 16, fontSize: 16}}>TRAILERS</Text>
+                            </View>
+                        </View>
+                        <View style={{flex: 3}}>
+                            <FlatList
+                                horizontal={false}
+                                data={this.state.trailers}
+                                renderItem={this.renderItemTrailer}
+                                keyExtractor={(item, index) => index.toString()}
+                                showsHorizontalScrollIndicator={false}
+                            />
+                        </View>
+                    </ScrollView>
+                </View>
+            );
+        }
     }
 }
 

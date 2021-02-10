@@ -28,6 +28,12 @@ const apiGetMovieTrailers = (movie_id) => {
     )
 }
 
+const apiSearchMovies = (movie) => {
+    return (
+        `https://api.themoviedb.org/3/search/movie?api_key=81229d17288cd3c3a979724d4d5c9cae&language=en-US&query=${movie}&page=1`
+    )
+}
+
 export {
     apiPopular,
     apiUpcoming,
@@ -37,5 +43,6 @@ export {
     apiGetMovie,
     apiGetMovieCast,
     apiGetMovieSimilarMovies,
-    apiGetMovieTrailers
+    apiGetMovieTrailers,
+    apiSearchMovies
 }

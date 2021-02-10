@@ -62,6 +62,13 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
     },
+    loader: {
+        flex:1,
+        flexDirection:'row',
+        alignItems:'center',
+        backgroundColor: '#15202B',
+        justifyContent:'center'
+    }
 });
 
 export default styles;

@@ -1,6 +1,10 @@
 import React from 'react';
-import {NavigationContainer} from "@react-navigation/native";
-import {createStackNavigator} from "@react-navigation/stack";
+import {
+    createStackNavigator,
+    TransitionSpecs,
+    CardStyleInterpolators,
+    HeaderStyleInterpolators 
+} from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
 
@@ -9,24 +13,26 @@ import MovieDetailsScreen from "../screens/MovieDetails/MovieDetailsScreen";
 
 function NavigationStackHome() {
     return (
-            <Stack.Navigator initialRouteName="Home">
-                <Stack.Screen
-                    name="Home"
-                    component={HomeScreen}
-                    options={{
-                        headerShown: false
-                    }}
-                />
-                <Stack.Screen
-                    name="MovieDetails"
-                    component={MovieDetailsScreen}
-                    options={{
-                        headerStyle: {
-                            backgroundColor: '#B43343'
-                        }
-                    }}
-                />
-            </Stack.Navigator>
+        <Stack.Navigator
+            initialRouteName="Home"
+            >
+            <Stack.Screen
+                name="Home"
+                component={HomeScreen}
+                options={{
+                    headerShown: false
+                }}
+            />
+            <Stack.Screen
+                name="MovieDetails"
+                component={MovieDetailsScreen}
+                options={{
+                    headerStyle: {
+                        backgroundColor: '#B43343'
+                    }
+                }}
+            />
+        </Stack.Navigator>
     );
 };
 

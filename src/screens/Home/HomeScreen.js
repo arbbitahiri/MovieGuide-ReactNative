@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {StatusBar} from "expo-status-bar";
 import {
     View,
@@ -19,7 +19,9 @@ import {
     apiNowPlaying,
     apiTrending
 } from "../../services/apiLinks";
-import makePhotoUrl from '../../components/makePhotoUrl'
+import makePhotoUrl from '../../configurations/makePhotoUrl';
+import FadeIn from '../../components/FadeIn';
+import ScreenWrapper from '../../components/ScreenWrapper';
 
 class HomeScreen extends React.Component {
     constructor(props) {
@@ -148,7 +150,7 @@ class HomeScreen extends React.Component {
                 <View style={styles.container}>
                     <StatusBar style={'dark'} backgroundColor={'#B43343'} />
                     <ScrollView>
-                        <View style={{flex: 4}}>
+                        <ScreenWrapper style={{flex: 4}}>
                             <FlatList
                                 horizontal={true}
                                 data={this.state.trending}
@@ -159,12 +161,12 @@ class HomeScreen extends React.Component {
                                     minIndexForVisible: 0,
                                 }}
                             />
-                        </View>
+                        </ScreenWrapper>
                         <View style={{flex: 3}}>
                             <View style={{flex:1}}>
                                 <Text style={styles.textView}>Popular Movies</Text>
                             </View>
-                            <View>
+                            <ScreenWrapper>
                                 <FlatList
                                     horizontal={true}
                                     data={this.state.popular}
@@ -172,13 +174,13 @@ class HomeScreen extends React.Component {
                                     keyExtractor={(item, index) => index.toString()}
                                     showsHorizontalScrollIndicator={false}
                                 />
-                            </View>
+                            </ScreenWrapper>
                         </View>
                         <View style={{flex: 3}}>
                             <View style={{flex:1}}>
                                 <Text style={styles.textView}>Upcoming Movies</Text>
                             </View>
-                            <View style={{flex: 3}}>
+                            <ScreenWrapper style={{flex: 3}}>
                                 <FlatList
                                         horizontal={true}
                                         data={this.state.upcoming}
@@ -186,13 +188,13 @@ class HomeScreen extends React.Component {
                                         keyExtractor={(item, index) => index.toString()}
                                         showsHorizontalScrollIndicator={false}
                                 />
-                            </View>
+                            </ScreenWrapper>
                         </View>
                         <View style={{flex: 3}}>
                             <View style={{flex:1}}>
                                 <Text style={styles.textView}>Top Rated Movies</Text>
                             </View>
-                            <View style={{flex: 3}}>
+                            <ScreenWrapper style={{flex: 3}}>
                                 <FlatList
                                         horizontal={true}
                                         data={this.state.top_rated}
@@ -200,13 +202,13 @@ class HomeScreen extends React.Component {
                                         keyExtractor={(item, index) => index.toString()}
                                         showsHorizontalScrollIndicator={false}
                                 />
-                            </View>
+                            </ScreenWrapper>
                         </View>
                         <View style={{flex: 3}}>
                             <View style={{flex:1}}>
                                 <Text style={styles.textView}>Now Playing Movies</Text>
                             </View>
-                            <View style={{flex: 3}}>
+                            <ScreenWrapper style={{flex: 3}}>
                                 <FlatList
                                         horizontal={true}
                                         data={this.state.now_playing}
@@ -214,7 +216,7 @@ class HomeScreen extends React.Component {
                                         keyExtractor={(item, index) => index.toString()}
                                         showsHorizontalScrollIndicator={false}
                                 />
-                            </View>
+                            </ScreenWrapper>
                         </View>
                     </ScrollView>
                 </View>

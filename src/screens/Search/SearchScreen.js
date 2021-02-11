@@ -12,7 +12,7 @@ import styles from './styles';
 
 import { apiSearchMovies } from "../../services/apiLinks";
 import { Searchbar } from "react-native-paper";
-import makePhotoUrl from '../../components/makePhotoUrl'
+import makePhotoUrl from '../../configurations/makePhotoUrl'
 
 class SearchScreen extends React.Component {
     constructor(props) {

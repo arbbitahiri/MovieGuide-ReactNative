@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
     View,
     Image,
@@ -7,20 +7,22 @@ import {
     ScrollView,
     FlatList,
     Linking,
-    ActivityIndicator 
+    ActivityIndicator,
+    Alert
 } from 'react-native';
-
-import styles from './styles'
 import {FAB} from "react-native-paper";
+
+import styles from './styles';
 import {
     apiGetMovie,
     apiGetMovieCast,
     apiGetMovieSimilarMovies,
     apiGetMovieTrailers
 } from "../../services/apiLinks";
-import makePhotoUrl from '../../components/makePhotoUrl'
-import openYouTubeUrl from '../../components/openYouTubeUrl'
-import genre from '../../utils/genre.json'
+import makePhotoUrl from '../../configurations/makePhotoUrl';
+import openYouTubeUrl from '../../configurations/openYouTubeUrl';
+import genre from '../../utils/genre.json';
+import ScreenWrapper from '../../components/ScreenWrapper';
 
 function convertToDate(date) {
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -43,8 +45,8 @@ class MovieDetailsScreen extends React.Component {
             cast: [],
             similar_movies: [],
             trailers: [],
-            movie_genre: [],
-            genre_name: []
+            icon_name: "heart-outline",
+            alert_add: "NO"
         }
     }
 
@@ -62,8 +64,8 @@ class MovieDetailsScreen extends React.Component {
             const response = await fetch(apiGetMovie(id));
             const json = await response.json();
             this.setState({ movie: json });
-        } catch (error) {
-            alert(error);
+        } catch {
+            alert("Failed to load movie's data!");
         } finally {
             this.setState({ loading: false });
         }
@@ -74,8 +76,8 @@ class MovieDetailsScreen extends React.Component {
             const response = await fetch(apiGetMovieCast(id));
             const json = await response.json();
             this.setState({ cast: json.cast });
-        } catch (error) {
-            alert(error);
+        } catch {
+            alert("Failed to load cast!");
         } finally {
             this.setState({ loading: false });
         }
@@ -86,8 +88,8 @@ class MovieDetailsScreen extends React.Component {
             const response = await fetch(apiGetMovieSimilarMovies(id));
             const json = await response.json();
             this.setState({ similar_movies: json.results });
-        } catch (error) {
-            alert(error);
+        } catch {
+            alert("Failed to load similar movies!");
         } finally {
             this.setState({ loading: false });
         }
@@ -98,8 +100,8 @@ class MovieDetailsScreen extends React.Component {
             const response = await fetch(apiGetMovieTrailers(id));
             const json = await response.json();
             this.setState({ trailers: json.results });
-        } catch (error) {
-            alert(error);
+        } catch {
+            alert("Failed to load trailers!");
         } finally {
             this.setState({ loading: false });
         }
@@ -151,6 +153,27 @@ class MovieDetailsScreen extends React.Component {
         );
     }
 
+    createAlertForFavorites = () => {
+        Alert.alert(
+            "Add to Favorites",
+            "Do you want to add this movie to favorites?",
+            [
+                {
+                    text: "No",
+                    onPress: () => this.setState({ icon_name: "heart-outline" }),
+                    style: "cancel"
+                },
+                {
+                    text: "Yes",
+                    onPress: () => this.setState({ icon_name: "heart" }),
+                }
+            ],
+            {
+                cancelable: false
+            }
+        );
+    }
+
     render() {
         const { genre_ids } = this.props.route.params;
 
@@ -183,8 +206,8 @@ class MovieDetailsScreen extends React.Component {
                             <FAB
                                 style={styles.fabMD}
                                 small
-                                icon="plus"
-                                onPress={() => alert('Added to favorites!')}
+                                icon={this.state.icon_name}
+                                onPress={this.createAlertForFavorites}
                             />
                         </View>
                         <View style={{flex: 1}}>
@@ -195,7 +218,7 @@ class MovieDetailsScreen extends React.Component {
                                 <Text style={{marginStart: 16, fontSize: 16}}>CAST</Text>
                             </View>
                         </View>
-                        <View style={{flex: 3}}>
+                        <ScreenWrapper style={{flex: 3}}>
                             <FlatList
                                 horizontal={true}
                                 data={this.state.cast}
@@ -203,13 +226,13 @@ class MovieDetailsScreen extends React.Component {
                                 keyExtractor={(item, index) => index.toString()}
                                 showsHorizontalScrollIndicator={false}
                             />
-                        </View>
+                        </ScreenWrapper>
                         <View style={{flex: 1}}>
                             <View style={styles.castView}>
                                 <Text style={{marginStart: 16, fontSize: 16}}>SIMILAR MOVIES</Text>
                             </View>
                         </View>
-                        <View style={{flex: 3}}>
+                        <ScreenWrapper style={{flex: 3}}>
                             <FlatList
                                 horizontal={true}
                                 data={this.state.similar_movies}
@@ -217,13 +240,13 @@ class MovieDetailsScreen extends React.Component {
                                 keyExtractor={(item, index) => index.toString()}
                                 showsHorizontalScrollIndicator={false}
                             />
-                        </View>
+                        </ScreenWrapper>
                         <View style={{flex: 1}}>
                             <View style={styles.castView}>
                                 <Text style={{marginStart: 16, fontSize: 16}}>TRAILERS</Text>
                             </View>
                         </View>
-                        <View style={{flex: 3}}>
+                        <ScreenWrapper style={{flex: 3}}>
                             <FlatList
                                 horizontal={false}
                                 data={this.state.trailers}
@@ -231,7 +254,7 @@ class MovieDetailsScreen extends React.Component {
                                 keyExtractor={(item, index) => index.toString()}
                                 showsHorizontalScrollIndicator={false}
                             />
-                        </View>
+                        </ScreenWrapper>
                     </ScrollView>
                 </View>
             );

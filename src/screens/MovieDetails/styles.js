@@ -1,4 +1,6 @@
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Dimensions} from "react-native";
+
+const windowWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
     container: {
@@ -8,8 +10,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#15202B',
         // alignItems: 'flex-start',
     },
+    background: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        marginBottom: 75,
+        height: 300,
+    },
     imageCover: {
-        marginTop: -85,
+        marginTop: 125,
         marginStart: 16,
         width: 150,
         height: 200
@@ -34,39 +44,45 @@ const styles = StyleSheet.create({
     },
     movieTitle: {
         position: 'absolute',
-        left: 0,
-        marginTop: 260,
-        marginEnd: 35,
-        marginStart: 185,
+        marginTop: -80,
+        width: windowWidth - 166,
+        right: 0,
         color: '#B43343',
-        fontSize: 18,
-        textAlign: 'center'
+        fontSize: 20,
+        textAlign: 'center',
+        alignItems: 'center'
     },
     releaseDate: {
         position: 'absolute',
+        marginTop: -50,
+        width: windowWidth - 250,
         right: 0,
-        marginTop: 330,
-        marginEnd: 25,
         color: '#B43343',
-        fontSize: 15
+        fontSize: 15,
+        textAlign: 'center',
+        alignItems: 'center',
     },
     rating: {
         position: 'absolute',
-        left: 0,
-        marginTop: 330,
-        marginStart: 185,
+        marginTop: -50,
+        width: windowWidth - 15,
+        right: 0,
         color: '#B43343',
-        fontSize: 15
+        fontSize: 15,
+        textAlign: 'center',
+        alignItems: 'center'
     },
     genre: {
         position: 'absolute',
         fontStyle: 'italic',
-        left: 0,
-        marginTop: 295,
-        marginEnd: 25,
-        marginStart: 185,
+        marginTop: -25,
+        padding: 2,
+        width: windowWidth - 166,
+        right: 0,
         color: '#B43343',
-        fontSize: 15
+        fontSize: 15,
+        textAlign: 'center',
+        alignItems: 'center'
     },
     fabMD: {
         width: 60,
@@ -78,13 +94,46 @@ const styles = StyleSheet.create({
         position: 'absolute',
         margin: 16,
         right: 0,
-        marginTop: 185,
+        marginTop: -170,
     },
     desc: {
         marginTop: 16,
         marginStart: 16,
         marginEnd: 16,
         marginBottom: 8,
+        color: '#B43343',
+        fontSize: 15,
+        textAlign: 'justify'
+    },
+    tagline: {
+        marginTop: 0,
+        marginStart: 16,
+        marginEnd: 16,
+        marginBottom: 8,
+        color: '#B43343',
+        fontSize: 15
+    },
+    runtime: {
+        marginTop: 0,
+        marginStart: 16,
+        marginEnd: 16,
+        marginBottom: 8,
+        color: '#B43343',
+        fontSize: 15
+    },
+    budget: {
+        marginTop: 0,
+        marginStart: 16,
+        marginEnd: 16,
+        marginBottom: 8,
+        color: '#B43343',
+        fontSize: 15
+    },
+    revenue: {
+        marginTop: 0,
+        marginStart: 16,
+        marginEnd: 16,
+        marginBottom: 16,
         color: '#B43343',
         fontSize: 15
     },
@@ -96,9 +145,21 @@ const styles = StyleSheet.create({
         color: '#B43343',
         marginLeft: 16,
         marginRight: 16,
-        marginBottom: 8,
+        marginBottom: 2,
         fontSize: 15,
-        fontWeight:"bold"
+        fontWeight:"bold",
+        textAlign: 'center',
+        alignItems: 'center'
+    },
+    castRoles: {
+        color: '#B43343',
+        marginLeft: 16,
+        marginRight: 16,
+        marginBottom: 8,
+        fontSize: 12,
+        fontWeight:"bold",
+        textAlign: 'center',
+        alignItems: 'center'
     },
     trailerNames: {
         color: '#B43343',

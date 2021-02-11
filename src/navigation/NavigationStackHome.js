@@ -29,7 +29,8 @@ function NavigationStackHome() {
                 options={{
                     headerStyle: {
                         backgroundColor: '#B43343'
-                    }
+                    },
+                    headerTitle: "Details"
                 }}
             />
         </Stack.Navigator>

@@ -13,6 +13,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         marginTop: Constants.statusBarHeight
     },
+    background: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        bottom: 0,
+        height: 300,
+    },
     listItemHome:{
         margin:5,
         padding:5,
@@ -42,7 +49,7 @@ const styles = StyleSheet.create({
     },
     itemText: {
         color: '#FFFFFF',
-        marginTop: 260,
+        marginTop: -40,
         fontSize: 20,
         textAlign: "center"
     },

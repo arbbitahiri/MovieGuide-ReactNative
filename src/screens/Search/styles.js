@@ -24,11 +24,12 @@ const styles = StyleSheet.create({
     textDesignSearch: {
         color: '#B43343',
         marginTop: 8,
-        marginLeft: 16,
-        marginRight: 16,
         marginBottom: 8,
         fontSize: 12,
-        fontWeight:"bold"
+        fontWeight:"bold",
+        textAlign: 'center',
+        alignItems: 'center',
+        width: windowWidth/2
     },
     text: {
         fontSize: 15,

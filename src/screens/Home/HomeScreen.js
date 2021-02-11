@@ -10,6 +10,7 @@ import {
     ImageBackground,
     ActivityIndicator 
 } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import styles from './styles';
 import {
@@ -27,7 +28,11 @@ class HomeScreen extends React.Component {
         super(props);
 
         this.state = {
-            loading: true,
+            loading_popular: true,
+            loading_upcoming: true,
+            loading_top_rated: true,
+            loading_now_playing: true,
+            loading_trending: true,
             popular: [],
             upcoming: [],
             top_rated: [],
@@ -36,20 +41,96 @@ class HomeScreen extends React.Component {
         }
     }
 
+    async componentDidMount() {
+        this.fetchPopular();
+        this.fetchUpcoming();
+        this.fetchTopRated();
+        this.fetchNowPlaying();
+        this.fetchTrending();
+    }
+
+    fetchPopular = async() => {
+        try {
+            const response = await fetch(apiPopular);
+            const json = await response.json();
+            this.setState({ popular: json.results });
+        } catch (error) {
+            alert(error);
+        } finally {
+            this.setState({ loading_popular: false });
+        }
+    }
+
+    fetchUpcoming = async() => {
+        try {
+            const response = await fetch(apiUpcoming);
+            const json = await response.json();
+            this.setState({ upcoming: json.results });
+        } catch (error) {
+            alert(error);
+        } finally {
+            this.setState({ loading_upcoming: false });
+        }
+    }
+
+    fetchTopRated = async() => {
+        try {
+            const response = await fetch(apiTopRated);
+            const json = await response.json();
+            this.setState({ top_rated: json.results });
+        } catch (error) {
+            alert(error);
+        } finally {
+            this.setState({ loading_top_rated: false });
+        }
+    }
+
+    fetchNowPlaying = async() => {
+        try {
+            const response = await fetch(apiNowPlaying);
+            const json = await response.json();
+            this.setState({ now_playing: json.results });
+        } catch (error) {
+            alert(error);
+        } finally {
+            this.setState({ loading_now_playing: false });
+        }
+    }
+
+    fetchTrending = async() => {
+        try {
+            const response = await fetch(apiTrending);
+            const json = await response.json();
+            this.setState({ trending: json.results });
+        } catch (error) {
+            alert(error);
+        } finally {
+            this.setState({ loading_trending: false });
+        }
+    }
+
     renderItemSlider = ({ item }) => {
         return (
-            <View style={styles.listItemHome}>
-            <TouchableWithoutFeedback onPress={() =>
-                this.props.navigation.navigate('MovieDetails', { movie_id: item.id, genre_ids: item.genre_ids })} >
-                    <ImageBackground 
-                        style={styles.imageViewSlider}
-                        source={{ uri: makePhotoUrl(item.backdrop_path, "w1280") }}
-                        resizeMode="cover">
-                            <Text style={styles.itemText}>
-                                {item.original_title}
-                            </Text>
-                        </ImageBackground>
-                </TouchableWithoutFeedback>
+            <View>
+                <View style={styles.listItemHome}>
+                    <TouchableWithoutFeedback onPress={() =>
+                        this.props.navigation.navigate('MovieDetails', { movie_id: item.id, genre_ids: item.genre_ids })} >
+                            <ImageBackground 
+                                style={styles.imageViewSlider}
+                                source={{ uri: makePhotoUrl(item.backdrop_path, "w1280") }}
+                                resizeMode="cover">
+                                    <LinearGradient
+                                        colors={['transparent', 'rgba(21,32,43,1)']}
+                                        style={styles.background}
+                                    />
+                            </ImageBackground>
+                    </TouchableWithoutFeedback>
+                </View>
+                <View>
+                    <Text style={styles.itemText}>
+                        {item.original_title}
+                    </Text>
+                </View>
             </View>
         );
     }
@@ -69,76 +150,10 @@ class HomeScreen extends React.Component {
         );
     }
 
-    async componentDidMount() {
-        this.fetchPopular();
-        this.fetchUpcoming();
-        this.fetchTopRated();
-        this.fetchNowPlaying();
-        this.fetchTrending();
-    }
-
-    fetchPopular = async() => {
-        try {
-            const response = await fetch(apiPopular);
-            const json = await response.json();
-            this.setState({ popular: json.results });
-        } catch (error) {
-            alert(error);
-        } finally {
-            this.setState({ loading: false });
-        }
-    }
-
-    fetchUpcoming = async() => {
-        try {
-            const response = await fetch(apiUpcoming);
-            const json = await response.json();
-            this.setState({ upcoming: json.results });
-        } catch (error) {
-            alert(error);
-        } finally {
-            this.setState({ loading: false });
-        }
-    }
-
-    fetchTopRated = async() => {
-        try {
-            const response = await fetch(apiTopRated);
-            const json = await response.json();
-            this.setState({ top_rated: json.results });
-        } catch (error) {
-            alert(error);
-        } finally {
-            this.setState({ loading: false });
-        }
-    }
-
-    fetchNowPlaying = async() => {
-        try {
-            const response = await fetch(apiNowPlaying);
-            const json = await response.json();
-            this.setState({ now_playing: json.results });
-        } catch (error) {
-            alert(error);
-        } finally {
-            this.setState({ loading: false });
-        }
-    }
-
-    fetchTrending = async() => {
-        try {
-            const response = await fetch(apiTrending);
-            const json = await response.json();
-            this.setState({ trending: json.results });
-        } catch (error) {
-            alert(error);
-        } finally {
-            this.setState({ loading: false });
-        }
-    }
-
     render() {
-        if (this.state.loading) {
+        if (this.state.loading_popular && this.state.loading_upcoming
+             && this.state.loading_top_rated && this.state.loading_now_playing
+             && this.state.loading_trending) {
             return (
                 <View style={styles.loader}>
                     <ActivityIndicator size="small" color="#B43343" />
@@ -159,6 +174,7 @@ class HomeScreen extends React.Component {
                                 maintainVisibleContentPosition={{
                                     minIndexForVisible: 0,
                                 }}
+                                maxToRenderPerBatch={1}
                             />
                         </ScreenWrapper>
                         <View style={{flex: 3}}>

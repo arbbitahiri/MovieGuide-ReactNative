@@ -50,7 +50,7 @@ class SearchScreen extends React.Component {
             <View>
                 <StatusBar style={'dark'} backgroundColor={'#B43343'} />
                 <TouchableWithoutFeedback onPress={() =>
-                    this.props.navigation.navigate('MovieDetails', { movie_id: item.id, genre_ids: item.genre_ids })} >
+                    this.props.navigation.navigate('MovieDetailsSearch', { movie_id: item.id, genre_ids: item.genre_ids })} >
                     <Image
                         source={{ uri: makePhotoUrl(item.poster_path) }}
                         style={styles.moviesImageSearch}

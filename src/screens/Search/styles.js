@@ -10,21 +10,8 @@ const styles = StyleSheet.create({
         marginTop: Constants.statusBarHeight,
         justifyContent: 'center',
         alignItems: 'center',
+        width: windowWidth
         // flexDirection: 'column'
-    },
-    listItemSearch:{
-        margin:5,
-        padding:5,
-        backgroundColor:"#15202B",
-        width:"100%",
-        flex:1,
-        alignSelf:"center",
-        flexDirection:"row",
-        // borderRadius:5
-    },
-    movieItemSearch: {
-        flex: 1,
-        flexDirection: "column"
     },
     searchDesign: {
         alignItems: "flex-start",
@@ -54,12 +41,9 @@ const styles = StyleSheet.create({
         width: 200,
         height: 270
     },
-    loader: {
-        flex:1,
-        flexDirection:'row',
-        alignItems:'center',
-        backgroundColor: '#15202B',
-        justifyContent:'center'
+    searchFlatList: {
+        flex: 1,
+        width: windowWidth
     }
 });
 

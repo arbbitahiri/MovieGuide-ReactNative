@@ -1,5 +1,4 @@
 import {StyleSheet, Text, View} from "react-native";
-import Constants from 'expo-constants';
 
 const styles = StyleSheet.create({
     container: {

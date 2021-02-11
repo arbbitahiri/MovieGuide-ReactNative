@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import {
     Text,
     View,
-    ActivityIndicator,
     FlatList,
     TouchableWithoutFeedback,
     Image
@@ -48,7 +47,7 @@ class SearchScreen extends React.Component {
 
     renderMovies = ({ item }) => {
         return (
-            <View style={styles.listItemFav}>
+            <View>
                 <StatusBar style={'dark'} backgroundColor={'#B43343'} />
                 <TouchableWithoutFeedback onPress={() =>
                     this.props.navigation.navigate('MovieDetails', { movie_id: item.id, genre_ids: item.genre_ids })} >
@@ -78,11 +77,13 @@ class SearchScreen extends React.Component {
                         onChangeText={this.handleSearch}
                         onSubmitEditing={this.onSubmitEditing}
                         value={search_movie}
+                        showLoading={true}
                         style={styles.text}
-                        inputStyle={{color: '#B43343'}} />
+                        inputStyle={{color: '#B43343'}}
+                        />
                 </View>
                 <FlatList
-                    style={{flex: 1}}
+                    style={styles.searchFlatList}
                     data={this.state.movie_results}
                     renderItem={this.renderMovies}
                     keyExtractor={(item, index) => index.toString()}

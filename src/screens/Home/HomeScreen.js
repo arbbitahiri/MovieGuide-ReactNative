@@ -20,7 +20,6 @@ import {
     apiTrending
 } from "../../services/apiLinks";
 import makePhotoUrl from '../../configurations/makePhotoUrl';
-import FadeIn from '../../components/FadeIn';
 import ScreenWrapper from '../../components/ScreenWrapper';
 
 class HomeScreen extends React.Component {

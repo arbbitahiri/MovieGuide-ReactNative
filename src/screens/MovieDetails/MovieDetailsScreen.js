@@ -153,25 +153,50 @@ class MovieDetailsScreen extends React.Component {
         );
     }
 
+    /**
+     * TODO: me bo ni metod per redux edhe me shti ne onPress te createAlertForFavorites
+     */
+
     createAlertForFavorites = () => {
-        Alert.alert(
-            "Add to Favorites",
-            "Do you want to add this movie to favorites?",
-            [
+        if (this.state.icon_name.includes("heart-outline")) {
+            Alert.alert(
+                "Add to Favorites",
+                "Do you want to add this movie to favorites?",
+                [
+                    {
+                        text: "No",
+                        onPress: () => this.setState({ icon_name: "heart-outline" }),
+                        style: "cancel"
+                    },
+                    {
+                        text: "Yes",
+                        onPress: () => this.setState({ icon_name: "heart" }),
+                    }
+                ],
                 {
-                    text: "No",
-                    onPress: () => this.setState({ icon_name: "heart-outline" }),
-                    style: "cancel"
-                },
-                {
-                    text: "Yes",
-                    onPress: () => this.setState({ icon_name: "heart" }),
+                    cancelable: false
                 }
-            ],
-            {
-                cancelable: false
-            }
-        );
+            );
+        } else {
+            Alert.alert(
+                "Remove from Favorites",
+                "Do you want to remove this movie from favorites?",
+                [
+                    {
+                        text: "No",
+                        onPress: () => this.setState({ icon_name: "heart" }),
+                        style: "cancel"
+                    },
+                    {
+                        text: "Yes",
+                        onPress: () => this.setState({ icon_name: "heart-outline" }),
+                    }
+                ],
+                {
+                    cancelable: false
+                }
+            );
+        }
     }
 
     render() {

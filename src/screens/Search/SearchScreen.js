@@ -6,10 +6,14 @@ import {
     TouchableWithoutFeedback,
     Image
 } from "react-native";
-import {StatusBar} from "expo-status-bar";
+import {
+    MAIN_COLOR,
+    TEXT_COLOR
+} from '../../constants/Colors';
+import { StatusBar } from "expo-status-bar";
 import styles from './styles';
 
-import { apiSearchMovies } from "../../services/apiLinks";
+import { API_SEARCH_MOVIES } from "../../services/apiLinks";
 import { Searchbar } from "react-native-paper";
 import makePhotoUrl from '../../configurations/makePhotoUrl'
 
@@ -34,7 +38,7 @@ class SearchScreen extends React.Component {
         if (search_movie !== "") {
             this.setState({ loading: false });
             try {
-                const response = await fetch(apiSearchMovies(search_movie));
+                const response = await fetch(API_SEARCH_MOVIES(search_movie));
                 const json = await response.json();
                 this.setState({ movie_results: json.results });
             } catch(error) {
@@ -48,7 +52,7 @@ class SearchScreen extends React.Component {
     renderMovies = ({ item }) => {
         return (
             <View>
-                <StatusBar style={'dark'} backgroundColor={'#B43343'} />
+                <StatusBar style={'dark'} backgroundColor={MAIN_COLOR} />
                 <TouchableWithoutFeedback onPress={() =>
                     this.props.navigation.navigate('MovieDetailsSearch', { movie_id: item.id, genre_ids: item.genre_ids })} >
                     <Image
@@ -79,7 +83,7 @@ class SearchScreen extends React.Component {
                         value={search_movie}
                         showLoading={true}
                         style={styles.text}
-                        inputStyle={{color: '#B43343'}}
+                        inputStyle={{color: TEXT_COLOR}}
                         />
                 </View>
                 <FlatList

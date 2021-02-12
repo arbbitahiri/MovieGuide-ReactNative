@@ -8,31 +8,31 @@ import {
     FlatList,
     Image,
     ImageBackground,
-    ActivityIndicator 
+    ActivityIndicator, 
+    Alert
 } from 'react-native';
+import { MAIN_COLOR } from '../../constants/Colors';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import styles from './styles';
 import {
-    apiPopular,
-    apiUpcoming,
-    apiTopRated,
-    apiNowPlaying,
-    apiTrending
+    API_POPULAR,
+    API_UPCOMING,
+    API_TOP_RATED,
+    API_NOW_PLAYING,
+    API_TRENDING,
 } from "../../services/apiLinks";
 import makePhotoUrl from '../../configurations/makePhotoUrl';
 import ScreenWrapper from '../../components/ScreenWrapper';
+import { AlertMessage } from '../../components/AlertMessage'
 
 class HomeScreen extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            loading_popular: true,
-            loading_upcoming: true,
-            loading_top_rated: true,
-            loading_now_playing: true,
-            loading_trending: true,
+            isLoading: true,
+            data_error: 0,
             popular: [],
             upcoming: [],
             top_rated: [],
@@ -47,65 +47,71 @@ class HomeScreen extends React.Component {
         this.fetchTopRated();
         this.fetchNowPlaying();
         this.fetchTrending();
+
+        if (this.state.data_error > 0) {
+            AlertMessage({
+                message: "An error occured while retrieving movie data's!",
+                header: "Error"
+            });
+        }
+
+        console.log(this.state.trending);
     }
 
     fetchPopular = async() => {
         try {
-            const response = await fetch(apiPopular);
+            const response = await fetch(API_POPULAR);
             const json = await response.json();
             this.setState({ popular: json.results });
         } catch (error) {
-            alert(error);
-        } finally {
-            this.setState({ loading_popular: false });
+            console.log(error);
+            this.setState({ data_error: this.state.data_error + 1 })
         }
     }
 
     fetchUpcoming = async() => {
         try {
-            const response = await fetch(apiUpcoming);
+            const response = await fetch(API_UPCOMING);
             const json = await response.json();
             this.setState({ upcoming: json.results });
         } catch (error) {
-            alert(error);
+            console.log(error);
+            this.setState({ data_error: this.state.data_error + 1 })
         } finally {
-            this.setState({ loading_upcoming: false });
+            this.setState({ isLoading: false });
         }
     }
 
     fetchTopRated = async() => {
         try {
-            const response = await fetch(apiTopRated);
+            const response = await fetch(API_TOP_RATED);
             const json = await response.json();
             this.setState({ top_rated: json.results });
         } catch (error) {
-            alert(error);
-        } finally {
-            this.setState({ loading_top_rated: false });
+            console.log(error);
+            this.setState({ data_error: this.state.data_error + 1 })
         }
     }
 
     fetchNowPlaying = async() => {
         try {
-            const response = await fetch(apiNowPlaying);
+            const response = await fetch(API_NOW_PLAYING);
             const json = await response.json();
             this.setState({ now_playing: json.results });
         } catch (error) {
-            alert(error);
-        } finally {
-            this.setState({ loading_now_playing: false });
+            console.log(error);
+            this.setState({ data_error: this.state.data_error + 1 })
         }
     }
 
     fetchTrending = async() => {
         try {
-            const response = await fetch(apiTrending);
+            const response = await fetch(API_TRENDING);
             const json = await response.json();
             this.setState({ trending: json.results });
         } catch (error) {
-            alert(error);
-        } finally {
-            this.setState({ loading_trending: false });
+            console.log(error);
+            this.setState({ data_error: this.state.data_error + 1 })
         }
     }
 
@@ -151,18 +157,16 @@ class HomeScreen extends React.Component {
     }
 
     render() {
-        if (this.state.loading_popular && this.state.loading_upcoming
-             && this.state.loading_top_rated && this.state.loading_now_playing
-             && this.state.loading_trending) {
+        if (this.state.isLoading) {
             return (
                 <View style={styles.loader}>
-                    <ActivityIndicator size="small" color="#B43343" />
+                    <ActivityIndicator size="small" color={MAIN_COLOR} />
                 </View>
-            )
+            );
         } else {
             return (
                 <View style={styles.container}>
-                    <StatusBar style={'dark'} backgroundColor={'#B43343'} />
+                    <StatusBar style={'dark'} backgroundColor={MAIN_COLOR} />
                     <ScrollView>
                         <ScreenWrapper style={{flex: 4}}>
                             <FlatList
@@ -240,12 +244,4 @@ class HomeScreen extends React.Component {
     }
 }
 
-// function mapStateToProps(state) {
-//     const {movies} = state;
-//     return {
-//         movies
-//     };
-// }
-
-// const connectHome = connect(mapStateToProps)(HomeScreen)
 export default HomeScreen;

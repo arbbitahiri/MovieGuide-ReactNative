@@ -1,4 +1,8 @@
 import React from 'react';
+import {
+    View,
+    ActivityIndicator,
+} from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import {NavigationContainer} from "@react-navigation/native";
@@ -6,16 +10,50 @@ import {NavigationContainer} from "@react-navigation/native";
 import NavigationStackHome from "./src/navigation/NavigationStackHome";
 import NavigationStackFavorites from "./src/navigation/NavigationStackFavorites";
 import NavigationStackSearch from "./src/navigation/NavigationStackSearch";
-import SearchScreen from './src/screens/Search/SearchScreen'
-import FavoriteScreen from './src/screens/Favorite/FavoriteScreen'
 import SettingsScreen from './src/screens/Settings/SettingsScreen'
 
-export default function App() {
-  return (
-      <NavigationContainer>
-          <MyTabs />
-      </NavigationContainer>
-  );
+import Expo from 'expo';
+import * as Font from 'expo-font';
+
+export default class App extends React.Component {
+    state = {
+        isReady: false,
+    }
+
+    componentDidMount() {
+        this.loadFonts();
+    }
+
+    async loadFonts() {
+        await Font.loadAsync({
+            'Raleway-Medium': require('./assets/fonts/Raleway-Medium.ttf'),
+            'Montserrat-Medium': require('./assets/fonts/Montserrat-Medium.ttf'),
+            'Montserrat-Light': require('./assets/fonts/Montserrat-Light.ttf')
+        });
+        this.setState({ isReady: true });
+    }
+  
+    render() {
+        if (!this.state.isReady) {
+            return (
+                <View style={{
+                    flex:1,
+                    flexDirection:'row',
+                    alignItems:'center',
+                    backgroundColor: '#15202B',
+                    justifyContent:'center'
+                }}>
+                    <ActivityIndicator size="small" color="#B43343" />
+                </View>
+            );
+        } else {
+            return (
+                <NavigationContainer>
+                    <MyTabs />
+                </NavigationContainer>
+            );
+        }
+    }
 }
 
 const Tab = createMaterialBottomTabNavigator();

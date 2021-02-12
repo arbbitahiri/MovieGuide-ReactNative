@@ -9,39 +9,41 @@ import {
     Linking,
     ActivityIndicator,
     Alert,
-    ImageBackground
+    ImageBackground,
+    Dimensions
 } from 'react-native';
 import { FAB } from "react-native-paper";
 import { LinearGradient } from 'expo-linear-gradient';
 
 import styles from './styles';
 import {
-    apiGetMovie,
-    apiGetMovieCast,
-    apiGetMovieSimilarMovies,
-    apiGetMovieTrailers
+    API_GET_MOVIE,
+    API_GET_MOVIE_CAST,
+    API_GET_SIMILAR_MOVIES,
+    API_GET_MOVIE_TRAILERS,
 } from "../../services/apiLinks";
+import { MAIN_COLOR } from '../../constants/Colors';
 import makePhotoUrl from '../../configurations/makePhotoUrl';
 import openYouTubeUrl from '../../configurations/openYouTubeUrl';
 import openIMDbUrl from '../../configurations/openIMDbUrl';
 import genre from '../../utils/genre.json';
 import ScreenWrapper from '../../components/ScreenWrapper';
+import { convertMoneyToCurrency } from '../../configurations/convertMoneyToCurrency'
+import { convertRuntimeToTime } from '../../configurations/convertRuntimeToTime'
+import { convertToDate } from '../../configurations/convertToDate'
 
 class MovieDetailsScreen extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            loading_movie: true,
-            loading_cast: true,
-            loading_similar_movies: true,
-            loading_trailers: true,
+            isLoaded: true,
+            data_error: 0,
             movie: [],
             cast: [],
             similar_movies: [],
             trailers: [],
-            icon_name: "heart-outline",
-            alert_add: "NO"
+            icon_name: "heart-outline"
         }
     }
 
@@ -57,49 +59,47 @@ class MovieDetailsScreen extends React.Component {
 
     fetchMovie = async(id) => {
         try {
-            const response = await fetch(apiGetMovie(id));
+            const response = await fetch(API_GET_MOVIE(id));
             const json = await response.json();
             this.setState({ movie: json });
-        } catch {
-            alert("Failed to load movie's data!");
-        } finally {
-            this.setState({ loading_movie: false });
+        } catch (error) {
+            console.log(error);
+            this.setState({ data_error: this.state.data_error + 1 });
         }
     }
 
     fetchCast = async(id) => {
         try {
-            const response = await fetch(apiGetMovieCast(id));
+            const response = await fetch(API_GET_MOVIE_CAST(id));
             const json = await response.json();
             this.setState({ cast: json.cast });
-        } catch {
-            alert("Failed to load cast!");
+        } catch (error) {
+            console.log(error);
+            this.setState({ data_error: this.state.data_error + 1 });
         } finally {
-            this.setState({ loading_cast: false });
+            this.setState({ isLoaded: false });
         }
     }
 
     fetchSimilarMovies = async(id) => {
         try {
-            const response = await fetch(apiGetMovieSimilarMovies(id));
+            const response = await fetch(API_GET_SIMILAR_MOVIES(id));
             const json = await response.json();
             this.setState({ similar_movies: json.results });
-        } catch {
-            alert("Failed to load similar movies!");
-        } finally {
-            this.setState({ loading_similar_movies: false });
+        } catch (error) {
+            console.log(error);
+            this.setState({ data_error: this.state.data_error + 1 });
         }
     }
 
     fetchTrailers = async(id) => {
         try {
-            const response = await fetch(apiGetMovieTrailers(id));
+            const response = await fetch(API_GET_MOVIE_TRAILERS(id));
             const json = await response.json();
             this.setState({ trailers: json.results });
-        } catch {
-            alert("Failed to load trailers!");
-        } finally {
-            this.setState({ loading_trailers: false });
+        } catch (error) {
+            console.log(error);
+            this.setState({ data_error: this.state.data_error + 1 });
         }
     }
 
@@ -149,49 +149,6 @@ class MovieDetailsScreen extends React.Component {
         }
     }
 
-    convertRuntimeToTime = (runtime) => {
-        let hours = Math.floor(runtime / 60);
-        let minutes = runtime % 60;
-        minutes = minutes < 10 ? '0' + minutes : minutes;
-        return `${hours}hrs ${minutes}min`;
-    }
-
-    convertToDate = (date) => {
-        const monthNames = ["January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        ];
-        const newDate = new Date(date);
-
-        return (
-            `${monthNames[newDate.getMonth()]} ${newDate.getDate() + 1}, ${newDate.getFullYear()}`
-        );
-    }
-
-    convertMoneyToCurrency = (money) => {
-        const ranges = [
-            { divider: 1e9, suffix: ' billion ' },
-            { divider: 1e6, suffix: ' million ' },
-            { divider: 1e3, suffix: 'k' }
-        ]
-
-        for (let i = 0; i < ranges.length; i++) {
-            if (money >= ranges[i].divider) {
-                if (money >= 1e8) {
-                    let newMoney = Math.ceil(money/1e6)*1e6;
-                    let roundedMoney = (newMoney / ranges[i].divider).toString();
-                    return roundedMoney + ranges[i].suffix + 'USD';
-                } else {
-                    let roundedMoney = (money / ranges[i].divider).toString();
-                    return roundedMoney + ranges[i].suffix + 'USD';
-                }
-            }
-        }
-
-        if (money == 0) {
-            return "unavailable";
-        }
-    }
-
     renderItemCast = ({ item }) => {
         return (
             <View style={styles.listItemHome}>
@@ -237,12 +194,10 @@ class MovieDetailsScreen extends React.Component {
 
     render() {
         const { genre_ids } = this.props.route.params;
-
-        if (this.state.loading_movie && this.state.loading_cast
-             && this.state.loading_similar_movies && this.state.loading_trailers) {
+        if (this.state.isLoaded) {
             return (
                 <View style={styles.loader}>
-                    <ActivityIndicator size="small" color="#B43343" />
+                    <ActivityIndicator size="small" color={MAIN_COLOR} />
                 </View>
             )
         } else {
@@ -273,7 +228,7 @@ class MovieDetailsScreen extends React.Component {
                                 {genre_ids.map((item, index) => 
                                     index == item.length - 1 ? genre[item].name : `${genre[item].name}/`)}
                             </Text>
-                            <Text style={styles.releaseDate}>{this.convertToDate(this.state.movie.release_date)}</Text>
+                            <Text style={styles.releaseDate}>{convertToDate(this.state.movie.release_date)}</Text>
                             <Text style={styles.rating}>{this.state.movie.vote_average}/10</Text>
                             <FAB
                                 style={styles.fabMD}
@@ -289,13 +244,13 @@ class MovieDetailsScreen extends React.Component {
                             <Text style={styles.tagline}>{this.state.movie.tagline}</Text>
                         </View>
                         <View style={{flex: 1}}>
-                            <Text style={styles.runtime}>Runtime: {this.convertRuntimeToTime(this.state.movie.runtime)}</Text>
+                            <Text style={styles.runtime}>Runtime: {convertRuntimeToTime(this.state.movie.runtime)}</Text>
                         </View>
                         <View style={{flex: 1}}>
-                            <Text style={styles.budget}>Budget: {this.convertMoneyToCurrency(this.state.movie.budget)}</Text>
+                            <Text style={styles.budget}>Budget: {convertMoneyToCurrency(this.state.movie.budget)}</Text>
                         </View>
                         <View style={{flex: 1}}>
-                            <Text style={styles.revenue}>Box Office: {this.convertMoneyToCurrency(this.state.movie.revenue)}</Text>
+                            <Text style={styles.revenue}>Box Office: {convertMoneyToCurrency(this.state.movie.revenue)}</Text>
                         </View>
                         <View style={{flex: 1}}>
                             <View style={styles.castView}>

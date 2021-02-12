@@ -1,4 +1,12 @@
-import {StyleSheet, Dimensions} from "react-native";
+import {
+    StyleSheet,
+    Dimensions,
+    Platform
+} from "react-native";
+import {
+    BACKGROUND_COLOR,
+    TEXT_COLOR
+} from '../../constants/Colors';
 import Constants from "expo-constants";
 
 const windowWidth = Dimensions.get('window').width;
@@ -8,7 +16,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'column',
         flexWrap: 'nowrap',
-        backgroundColor: '#15202B',
+        backgroundColor: BACKGROUND_COLOR,
         alignItems: 'flex-start',
         justifyContent: 'center',
         marginTop: Constants.statusBarHeight
@@ -23,7 +31,7 @@ const styles = StyleSheet.create({
     listItemHome:{
         margin:5,
         padding:5,
-        backgroundColor:"#15202B",
+        backgroundColor: BACKGROUND_COLOR,
         width:"100%",
         flex:1,
         alignSelf:"center",
@@ -31,12 +39,23 @@ const styles = StyleSheet.create({
         // borderRadius:5
     },
     textView: {
-        color: '#B43343',
+        color: TEXT_COLOR,
         marginTop: 8,
         marginLeft: 16,
         marginRight: 16,
         marginBottom: 8,
         fontSize: 16,
+        ...Platform.select({
+            android: {
+                fontFamily: 'Raleway-Medium'
+            },
+            ios: {
+                fontFamily: 'Raleway-Medium'
+            },
+            default: {
+                fontFamily: 'Raleway-Medium'
+            }
+        })
     },
     imageView: {
         width: 150,
@@ -48,10 +67,21 @@ const styles = StyleSheet.create({
         height: 300
     },
     itemText: {
-        color: '#FFFFFF',
+        color: TEXT_COLOR,
         marginTop: -40,
         fontSize: 20,
-        textAlign: "center"
+        textAlign: "center",
+        ...Platform.select({
+            android: {
+                fontFamily: 'Raleway-Medium'
+            },
+            ios: {
+                fontFamily: 'Raleway-Medium'
+            },
+            default: {
+                fontFamily: 'Raleway-Medium'
+            }
+        })
     },
     loader: {
         flex:1,

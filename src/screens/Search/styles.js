@@ -1,4 +1,12 @@
-import {StyleSheet, Dimensions} from "react-native";
+import {
+    StyleSheet,
+    Dimensions
+} from "react-native";
+import {
+    BACKGROUND_COLOR,
+    SECOND_COLOR,
+    TEXT_COLOR
+} from '../../constants/Colors';
 import Constants from "expo-constants";
 
 const windowWidth = Dimensions.get('window').width;
@@ -6,7 +14,7 @@ const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
     containerSearch: {
         flex: 1,
-        backgroundColor: '#15202B',
+        backgroundColor: BACKGROUND_COLOR,
         marginTop: Constants.statusBarHeight,
         justifyContent: 'center',
         alignItems: 'center',
@@ -15,14 +23,14 @@ const styles = StyleSheet.create({
     },
     searchDesign: {
         alignItems: "flex-start",
-        backgroundColor: '#15202B',
+        backgroundColor: BACKGROUND_COLOR,
         padding: 10,
         width: '100%',
         marginVertical: 10,
         borderRadius: 20
     },
     textDesignSearch: {
-        color: '#B43343',
+        color: TEXT_COLOR,
         marginTop: 8,
         marginBottom: 8,
         fontSize: 12,
@@ -33,8 +41,8 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 15,
-        color: '#fff',
-        backgroundColor: '#253341',
+        color: TEXT_COLOR,
+        backgroundColor: SECOND_COLOR,
         paddingHorizontal: 10,
         width: windowWidth - 20
     },

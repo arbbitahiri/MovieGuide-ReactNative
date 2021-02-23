@@ -23,6 +23,7 @@ import {
     API_TRENDING,
 } from "../../services/apiLinks";
 import makePhotoUrl from '../../configurations/makePhotoUrl';
+import { convertImage } from '../../configurations/makePhotoUrl';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import { AlertMessage } from '../../components/AlertMessage'
 
@@ -148,7 +149,7 @@ class HomeScreen extends React.Component {
                     this.props.navigation.navigate('MovieDetails', { movie_id: item.id, genre_ids: item.genre_ids })} >
                     <Image
                         style={styles.imageView}
-                        source={{ uri: makePhotoUrl(item.poster_path) }}
+                        source={{ uri: convertImage(item.poster_path) }}
                         resizeMode="cover"
                     />
                 </TouchableWithoutFeedback>

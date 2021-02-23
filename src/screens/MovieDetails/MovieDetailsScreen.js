@@ -31,6 +31,7 @@ import ScreenWrapper from '../../components/ScreenWrapper';
 import { convertMoneyToCurrency } from '../../configurations/convertMoneyToCurrency'
 import { convertRuntimeToTime } from '../../configurations/convertRuntimeToTime'
 import { convertToDate } from '../../configurations/convertToDate'
+import { convertImage } from '../../configurations/makePhotoUrl';
 
 class MovieDetailsScreen extends React.Component {
     constructor(props) {
@@ -50,6 +51,8 @@ class MovieDetailsScreen extends React.Component {
     componentDidMount() {
         const { movie_id } = this.props.route.params;
         console.log(movie_id);
+        const windowHeight = Dimensions.get('window').height;
+        console.log(windowHeight);
         
         this.fetchMovie(movie_id);
         this.fetchCast(movie_id);
@@ -154,7 +157,7 @@ class MovieDetailsScreen extends React.Component {
             <View style={styles.listItemHome}>
                 <Image
                     style={styles.imageViewCast}
-                    source={{ uri: makePhotoUrl(item.profile_path) }}
+                    source={{ uri: convertImage(item.profile_path) }}
                     resizeMode="cover"
                 />
                 <View style={{alignItems: "center"}}>

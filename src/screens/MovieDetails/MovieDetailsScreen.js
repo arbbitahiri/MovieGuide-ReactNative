@@ -32,6 +32,8 @@ import { convertMoneyToCurrency } from '../../configurations/convertMoneyToCurre
 import { convertRuntimeToTime } from '../../configurations/convertRuntimeToTime'
 import { convertToDate } from '../../configurations/convertToDate'
 import { convertImage } from '../../configurations/makePhotoUrl';
+import actions from './actions';
+import {connect} from 'react-redux';
 
 class MovieDetailsScreen extends React.Component {
     constructor(props) {
@@ -110,6 +112,19 @@ class MovieDetailsScreen extends React.Component {
      * TODO: me bo ni metod per redux edhe me shti ne onPress te createAlertForFavorites
      */
 
+    addMovie = (movie_id, movie_title, movie_date, backdrop_path, movie_rating) => {
+        const movie = {
+          id: movie_id,
+          title: movie_title,
+          releaseYear: movie_date,
+          path: backdrop_path,
+          rating: movie_rating
+        };
+        alert(movie.id);
+        console.log(movie.id)
+        this.props.dispatch(actions.add(movie));
+    };
+
     createAlertForFavorites = () => {
         if (this.state.icon_name.includes("heart-outline")) {
             Alert.alert(
@@ -130,6 +145,13 @@ class MovieDetailsScreen extends React.Component {
                     cancelable: false
                 }
             );
+            this.addMovie(
+                this.state.movie.id,
+                this.state.movie.original_title,
+                this.state.movie.release_date,
+                this.state.movie.backdrop_path,
+                this.state.vote_average
+            )
         } else {
             Alert.alert(
                 "Remove from Favorites",
@@ -303,5 +325,15 @@ class MovieDetailsScreen extends React.Component {
         }
     }
 }
+
+// function mapStateToProps(state) {
+//     const {movies} = state;
+//     return {
+//       movies
+//     };
+//   }
+  
+// const connectDetails = connect(mapStateToProps)(MovieDetailsScreen);
+// export {connectDetails as MovieDetailsScreen};
 
 export default MovieDetailsScreen;

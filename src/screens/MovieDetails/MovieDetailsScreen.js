@@ -32,12 +32,14 @@ import { convertMoneyToCurrency } from '../../configurations/convertMoneyToCurre
 import { convertRuntimeToTime } from '../../configurations/convertRuntimeToTime'
 import { convertToDate } from '../../configurations/convertToDate'
 import { convertImage } from '../../configurations/makePhotoUrl';
-import actions from './actions';
+import actions, { ADD_MOVIE } from './actions';
 import {connect} from 'react-redux';
 
 class MovieDetailsScreen extends React.Component {
     constructor(props) {
         super(props);
+
+        console.log("props", props);
 
         this.state = {
             isLoaded: true,
@@ -120,9 +122,9 @@ class MovieDetailsScreen extends React.Component {
           path: backdrop_path,
           rating: movie_rating
         };
-        alert(movie.id);
+
         console.log(movie.id)
-        this.props.dispatch(actions.add(movie));
+        this.props.dispatch({ type: ADD_MOVIE, movie });
     };
 
     createAlertForFavorites = () => {
@@ -326,14 +328,14 @@ class MovieDetailsScreen extends React.Component {
     }
 }
 
-// function mapStateToProps(state) {
-//     const {movies} = state;
-//     return {
-//       movies
-//     };
-//   }
-  
-// const connectDetails = connect(mapStateToProps)(MovieDetailsScreen);
-// export {connectDetails as MovieDetailsScreen};
+ function mapStateToProps(state) {
+    const {movies} = state;
+    return {
+      movies
+     };
+   }
 
 export default MovieDetailsScreen;
+//   export {connectDetails as MovieDetailsScreen};
+
+// export default connect(null, null)(MovieDetailsScreen);

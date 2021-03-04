@@ -1,3 +1,5 @@
+export const ADD_MOVIE = "ADD_MOVIE";
+
 export default {
     get,
     add,
@@ -14,7 +16,7 @@ function get() {
 
 function add(movie) {
   return {
-    type: 'ADD_MOVIE',
+    type: ADD_MOVIE,
     movie: movie
   }
 }

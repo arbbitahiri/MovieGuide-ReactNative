@@ -14,7 +14,7 @@ import SettingsScreen from './src/screens/Settings/SettingsScreen'
 
 import Expo from 'expo';
 import * as Font from 'expo-font';
-
+import { Provider } from 'react-redux';
 export default class App extends React.Component {
     state = {
         isReady: false,
@@ -48,9 +48,11 @@ export default class App extends React.Component {
             );
         } else {
             return (
+                
                 <NavigationContainer>
                     <MyTabs />
                 </NavigationContainer>
+                
             );
         }
     }

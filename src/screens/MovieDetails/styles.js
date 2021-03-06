@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
                 fontFamily: 'Raleway-Medium'
             },
             ios: {
-                fontFamily: 'Montserrat-Medium'
+                fontFamily: 'Montserrat-Light'
             },
             default: {
                 fontFamily: 'Raleway-Medium'

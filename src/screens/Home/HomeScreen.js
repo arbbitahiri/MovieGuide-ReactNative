@@ -61,9 +61,7 @@ class HomeScreen extends React.Component {
         try {
             const response = await fetch(API_POPULAR);
             const json = await response.json();
-            this.setState({ popular: json.results }, () => {
-                console.log(this.state.popular)
-            });
+            this.setState({ popular: json.results });
         } catch (error) {
             console.log(error);
             this.setState({ data_error: this.state.data_error + 1 })

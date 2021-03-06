@@ -55,15 +55,15 @@ class HomeScreen extends React.Component {
                 header: "Error"
             });
         }
-
-        console.log(this.state.trending);
     }
 
     fetchPopular = async() => {
         try {
             const response = await fetch(API_POPULAR);
             const json = await response.json();
-            this.setState({ popular: json.results });
+            this.setState({ popular: json.results }, () => {
+                console.log(this.state.popular)
+            });
         } catch (error) {
             console.log(error);
             this.setState({ data_error: this.state.data_error + 1 })

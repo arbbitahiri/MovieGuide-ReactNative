@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
                 fontFamily: 'Raleway-Medium'
             },
             ios: {
-                fontFamily: 'Raleway-Medium'
+                fontFamily: 'Montserrat-Medium'
             },
             default: {
                 fontFamily: 'Raleway-Medium'
@@ -128,7 +128,18 @@ const styles = StyleSheet.create({
         color: TEXT_COLOR,
         fontSize: 15,
         textAlign: 'justify',
-        fontFamily: 'Montserrat-Light'
+        // fontFamily: 'Montserrat-Light',
+        ...Platform.select({
+            android: {
+                fontFamily: 'Raleway-Medium'
+            },
+            ios: {
+                fontFamily: 'Montserrat-Medium'
+            },
+            default: {
+                fontFamily: 'Raleway-Medium'
+            }
+        })
     },
     tagline: {
         marginTop: 0,

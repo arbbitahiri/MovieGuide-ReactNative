@@ -5,6 +5,7 @@ import {
     Image,
     FlatList,
     TouchableWithoutFeedback,
+    ActivityIndicator,
 } from "react-native";
 import { FAB } from 'react-native-paper';
 import styles from "./styles"
@@ -15,14 +16,37 @@ import {
 } from '../../actions/actions';
 import { connect } from 'react-redux';
 import makePhotoUrl from '../../configurations/makePhotoUrl';
+import { MAIN_COLOR } from '../../constants/Colors';
+import { convertToDate } from '../../configurations/convertToDate';
 
 class FavoriteScreen extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            favorite: [],
+            isFetched: true
+        }
+    }
 
     componentDidMount() {
         this.props.dispatch(getMovie(this.props));
+
+        this.mapMovie();
+    }
+
+    mapMovie = () => {
         const movies = this.props.favorites;
-        console.log(movies)
-        console.log(movies.id)
+        console.log(movies);
+        try {
+            this.setState({ favorite: movies }, () => {
+                console.log(this.state.favorite, this.state.isFetched);
+            });
+        } catch (error) {
+            console.log(error, this.state.isFetched);
+        } finally {
+            this.setState({ isFetched: false });
+        }
     }
     
     renderItemFavorites({ item }) {
@@ -38,8 +62,8 @@ class FavoriteScreen extends React.Component {
                 </TouchableWithoutFeedback>
                 <View style={{alignItems: "center"}}>
                     <Text style={styles.textDesign}>{item.original_title}</Text>
-                    <Text style={styles.textDesign}>{item.release_date}</Text>
-                    <Text style={styles.textDesign}>{item.vote_average}</Text>
+                    <Text style={styles.textDesign}>{convertToDate(item.release_date)}</Text>
+                    <Text style={styles.textDesign}>{item.vote_average}/10</Text>
                 </View>
                 <View style={{flex: 1}}>
                     <FAB
@@ -53,28 +77,27 @@ class FavoriteScreen extends React.Component {
         )
     }
 
+    _keyExtractor = (item, index) => item.id;
+
     render(){
-        const favorites = this.props.favorites;
-        return (
-            <View style={styles.containerFav}>
-                {/* {
-                    favorites.map(movie => 
-                        <FlatList
-                            horizontal={false}
-                            data={movie}
-                            renderItem={this.renderItemFavorites}
-                            key={movie.id}
-                        />  
-                    )
-                } */}
-                <FlatList
-                    horizontal={false}
-                    data={favorites}
-                    renderItem={this.renderItemFavorites}
-                    key={favorites.id.toString()}
-                />
-            </View>
-        );
+        if (this.state.isFetched) {
+            return (
+                <View style={styles.loader}>
+                    <ActivityIndicator size="small" color={MAIN_COLOR} />
+                </View>
+            )
+        } else {
+            return (
+                <View style={styles.containerFav}>
+                    <FlatList
+                        horizontal={false}
+                        data={this.state.favorite}
+                        renderItem={this.renderItemFavorites}
+                        keyExtractor={this._keyExtractor}
+                    />
+                </View>
+            );
+        }
     }
 }
 

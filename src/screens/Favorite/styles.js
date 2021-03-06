@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
         marginTop: Constants.statusBarHeight
     },
     listItemFav:{
-        margin:5,
+        margin:2,
         padding:5,
         backgroundColor:"#15202B",
         width: windowWidth,
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
         flexDirection: "column",
     },
     imageViewFav: {
-        margin: 8,
+        margin: 4,
         width: 150,
         height: 200,
         alignSelf: 'center'
@@ -43,10 +43,7 @@ const styles = StyleSheet.create({
     },
     textDesign: {
         color: '#B43343',
-        marginTop: 8,
-        marginLeft: 16,
-        marginRight: 16,
-        marginBottom: 16,
+        margin: 16,
         fontSize: 16,
         fontWeight:"bold"
     },
@@ -58,9 +55,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         position: 'absolute',
-        margin: 16,
         right: 0,
         bottom: 0,
+        marginEnd: 16,
+        marginBottom: 32
     },
     loader: {
         flex:1,

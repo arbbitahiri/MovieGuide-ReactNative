@@ -29,9 +29,9 @@ import openIMDbUrl from '../../configurations/openIMDbUrl';
 import genre from '../../utils/genre.json';
 import ScreenWrapper from '../../components/ScreenWrapper';
 
-import { convertMoneyToCurrency } from '../../configurations/convertMoneyToCurrency'
-import { convertRuntimeToTime } from '../../configurations/convertRuntimeToTime'
-import { convertToDate } from '../../configurations/convertToDate'
+import { convertMoneyToCurrency } from '../../configurations/convertMoneyToCurrency';
+import { convertRuntimeToTime } from '../../configurations/convertRuntimeToTime';
+import { convertToDate } from '../../configurations/convertToDate';
 import { convertImage } from '../../configurations/makePhotoUrl';
 
 import { 
@@ -62,8 +62,6 @@ class MovieDetailsScreen extends React.Component {
 
     componentDidMount() {
         const { movie_id } = this.props.route.params;
-        const windowHeight = Dimensions.get('window').height;
-        console.log(windowHeight);
         
         this.fetchMovie(movie_id);
         this.fetchCast(movie_id);
@@ -125,7 +123,6 @@ class MovieDetailsScreen extends React.Component {
         const favorites = movie;
 
         this.props.dispatch(addMovie(favorites));
-        console.log(this.state.cast);
     };
 
     createAlertForFavorites = () => {

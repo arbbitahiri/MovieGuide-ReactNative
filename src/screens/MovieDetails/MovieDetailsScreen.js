@@ -28,12 +28,19 @@ import openYouTubeUrl from '../../configurations/openYouTubeUrl';
 import openIMDbUrl from '../../configurations/openIMDbUrl';
 import genre from '../../utils/genre.json';
 import ScreenWrapper from '../../components/ScreenWrapper';
+
 import { convertMoneyToCurrency } from '../../configurations/convertMoneyToCurrency'
 import { convertRuntimeToTime } from '../../configurations/convertRuntimeToTime'
 import { convertToDate } from '../../configurations/convertToDate'
 import { convertImage } from '../../configurations/makePhotoUrl';
-import actions, { ADD_MOVIE } from './actions';
-import {connect} from 'react-redux';
+
+import { 
+    getMovie,
+    addMovie,
+    deleteMovie,
+} from '../../actions/actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 class MovieDetailsScreen extends React.Component {
     constructor(props) {
@@ -48,13 +55,13 @@ class MovieDetailsScreen extends React.Component {
             cast: [],
             similar_movies: [],
             trailers: [],
-            icon_name: "heart-outline"
+            icon_name: "heart-outline",
+            favorites: []
         }
     }
 
     componentDidMount() {
         const { movie_id } = this.props.route.params;
-        console.log(movie_id);
         const windowHeight = Dimensions.get('window').height;
         console.log(windowHeight);
         
@@ -114,66 +121,59 @@ class MovieDetailsScreen extends React.Component {
      * TODO: me bo ni metod per redux edhe me shti ne onPress te createAlertForFavorites
      */
 
-    addMovie = (movie_id, movie_title, movie_date, backdrop_path, movie_rating) => {
-        const movie = {
-          id: movie_id,
-          title: movie_title,
-          releaseYear: movie_date,
-          path: backdrop_path,
-          rating: movie_rating
-        };
+    addMovie = (movie) => {
+        const favorites = movie;
 
-        console.log(movie.id)
-        this.props.dispatch({ type: ADD_MOVIE, movie });
+        this.props.dispatch(addMovie(favorites));
+        console.log(this.state.cast);
     };
 
     createAlertForFavorites = () => {
-        if (this.state.icon_name.includes("heart-outline")) {
-            Alert.alert(
-                "Add to Favorites",
-                "Do you want to add this movie to favorites?",
-                [
-                    {
-                        text: "No",
-                        onPress: () => this.setState({ icon_name: "heart-outline" }),
-                        style: "cancel"
-                    },
-                    {
-                        text: "Yes",
-                        onPress: () => this.setState({ icon_name: "heart" }),
-                    }
-                ],
-                {
-                    cancelable: false
-                }
-            );
-            this.addMovie(
-                this.state.movie.id,
-                this.state.movie.original_title,
-                this.state.movie.release_date,
-                this.state.movie.backdrop_path,
-                this.state.vote_average
-            )
-        } else {
-            Alert.alert(
-                "Remove from Favorites",
-                "Do you want to remove this movie from favorites?",
-                [
-                    {
-                        text: "No",
-                        onPress: () => this.setState({ icon_name: "heart" }),
-                        style: "cancel"
-                    },
-                    {
-                        text: "Yes",
-                        onPress: () => this.setState({ icon_name: "heart-outline" }),
-                    }
-                ],
-                {
-                    cancelable: false
-                }
-            );
-        }
+        // if (this.state.icon_name.includes("heart-outline")) {
+        //     Alert.alert(
+        //         "Add to Favorites",
+        //         "Do you want to add this movie to favorites?",
+        //         [
+        //             {
+        //                 text: "No",
+        //                 onPress: () => this.setState({ icon_name: "heart-outline" }),
+        //                 style: "cancel"
+        //             },
+        //             {
+        //                 text: "Yes",
+        //                 onPress: () => {
+        //                     this.setState({ icon_name: "heart" });
+        //                 },
+        //             }
+        //         ],
+        //         {
+        //             cancelable: false
+        //         }
+        //     );
+            this.addMovie(this.state.movie);
+        // } else {
+        //     Alert.alert(
+        //         "Remove from Favorites",
+        //         "Do you want to remove this movie from favorites?",
+        //         [
+        //             {
+        //                 text: "No",
+        //                 onPress: () => this.setState({ icon_name: "heart" }),
+        //                 style: "cancel"
+        //             },
+        //             {
+        //                 text: "Yes",
+        //                 onPress: () => {
+        //                     this.setState({ icon_name: "heart-outline" });
+        //                     alert(favorites)
+        //                 },
+        //             }
+        //         ],
+        //         {
+        //             cancelable: false
+        //         }
+        //     );
+        // }
     }
 
     renderItemCast = ({ item }) => {
@@ -328,14 +328,17 @@ class MovieDetailsScreen extends React.Component {
     }
 }
 
- function mapStateToProps(state) {
-    const {movies} = state;
+function mapStateToProps(state) {
+    console.log(state.movieReducer.favorites);
+    const favorites = state.movieReducer.favorites;
     return {
-      movies
-     };
-   }
+        favorites
+    };
+}
 
-export default MovieDetailsScreen;
+export default connect(
+    mapStateToProps
+)(MovieDetailsScreen);
+
+// export default MovieDetailsScreen;
 //   export {connectDetails as MovieDetailsScreen};
-
-// export default connect(null, null)(MovieDetailsScreen);

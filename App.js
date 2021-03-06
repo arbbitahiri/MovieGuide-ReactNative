@@ -5,16 +5,19 @@ import {
 } from 'react-native'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import {NavigationContainer} from "@react-navigation/native";
+import { NavigationContainer}  from "@react-navigation/native";
 
 import NavigationStackHome from "./src/navigation/NavigationStackHome";
 import NavigationStackFavorites from "./src/navigation/NavigationStackFavorites";
 import NavigationStackSearch from "./src/navigation/NavigationStackSearch";
 import SettingsScreen from './src/screens/Settings/SettingsScreen'
 
-import Expo from 'expo';
 import * as Font from 'expo-font';
 import { Provider } from 'react-redux';
+import configureStore from './src/store';
+
+const store = configureStore();
+
 export default class App extends React.Component {
     state = {
         isReady: false,
@@ -48,11 +51,11 @@ export default class App extends React.Component {
             );
         } else {
             return (
-                
-                <NavigationContainer>
-                    <MyTabs />
-                </NavigationContainer>
-                
+                <Provider store={store}>
+                    <NavigationContainer>
+                        <MyTabs />
+                    </NavigationContainer>
+                </Provider>
             );
         }
     }

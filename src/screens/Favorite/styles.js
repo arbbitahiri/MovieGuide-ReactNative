@@ -15,8 +15,8 @@ const styles = StyleSheet.create({
         marginTop: Constants.statusBarHeight
     },
     listItemFav:{
-        margin:2,
         padding:5,
+        marginTop: 7,
         backgroundColor:"#15202B",
         width: windowWidth,
         height: 250,
@@ -29,23 +29,60 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: "column",
     },
+    background: {
+        position: 'absolute',
+        height: 240,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        marginBottom: windowHeight > 886 ? 0 : 75,
+    },
+    imagePoster: {
+        flex: 1,
+        resizeMode: "cover",
+        justifyContent: "center",
+        width: '100%',
+        height: 240
+    },
     imageViewFav: {
         margin: 4,
         width: 150,
-        height: 200,
+        height: 225,
         alignSelf: 'center'
     },
-    text: {
-        fontSize: 20,
-        color: '#101010',
-        marginTop: 60,
-        fontWeight: '700'
-    },
-    textDesign: {
+    textDesignTitle: {
         color: '#B43343',
-        margin: 16,
-        fontSize: 16,
-        fontWeight:"bold"
+        marginLeft: 32,
+        marginTop: 16,
+        marginBottom: 16,
+        fontSize: 18,
+    },
+    textDesignReleaseDate: {
+        color: '#B43343',
+        marginLeft: 32,
+        marginTop: 16,
+        marginBottom: 16,
+        fontSize: 15,
+    },
+    textDesignRating: {
+        color: '#B43343',
+        marginLeft: 32,
+        marginTop: 16,
+        marginBottom: 16,
+        fontSize: 13,
+    },
+    textDesignRuntime: {
+        color: '#B43343',
+        marginLeft: 32,
+        marginTop: 16,
+        marginBottom: 16,
+        fontSize: 14,
+    },
+    texts: {
+        alignItems: "center",
+        justifyContent: 'center',
+        fontFamily: 'Montserrat-Light',
+        marginLeft: 24
     },
     fab: {
         width: 60,
@@ -59,6 +96,11 @@ const styles = StyleSheet.create({
         bottom: 0,
         marginEnd: 16,
         marginBottom: 32
+    },
+    itemSeparator: {
+        height: 1,
+        width: "100%",
+        backgroundColor: "#B43343",
     },
     loader: {
         flex:1,

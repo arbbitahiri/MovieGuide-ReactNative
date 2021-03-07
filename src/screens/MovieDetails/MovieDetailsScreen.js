@@ -10,7 +10,6 @@ import {
     ActivityIndicator,
     Alert,
     ImageBackground,
-    Dimensions
 } from 'react-native';
 import { FAB } from "react-native-paper";
 import { LinearGradient } from 'expo-linear-gradient';
@@ -34,13 +33,12 @@ import { convertRuntimeToTime } from '../../configurations/convertRuntimeToTime'
 import { convertToDate } from '../../configurations/convertToDate';
 import { convertImage } from '../../configurations/makePhotoUrl';
 
-import { 
-    getMovie,
+import {
     addMovie,
     deleteMovie,
+    getMovie
 } from '../../actions/actions';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 class MovieDetailsScreen extends React.Component {
     constructor(props) {
@@ -56,7 +54,8 @@ class MovieDetailsScreen extends React.Component {
             similar_movies: [],
             trailers: [],
             icon_name: "heart-outline",
-            favorites: []
+            favorite: [],
+            isFetched: true,
         }
     }
 
@@ -115,62 +114,62 @@ class MovieDetailsScreen extends React.Component {
         }
     }
 
-    /**
-     * TODO: me bo ni metod per redux edhe me shti ne onPress te createAlertForFavorites
-     */
-
     addMovie = (movie) => {
         const favorites = movie;
 
         this.props.dispatch(addMovie(favorites));
     };
 
+    deleteMovie = (id) => {
+        this.props.dispatch(deleteMovie(id));
+    };
+
     createAlertForFavorites = () => {
-        // if (this.state.icon_name.includes("heart-outline")) {
-        //     Alert.alert(
-        //         "Add to Favorites",
-        //         "Do you want to add this movie to favorites?",
-        //         [
-        //             {
-        //                 text: "No",
-        //                 onPress: () => this.setState({ icon_name: "heart-outline" }),
-        //                 style: "cancel"
-        //             },
-        //             {
-        //                 text: "Yes",
-        //                 onPress: () => {
-        //                     this.setState({ icon_name: "heart" });
-        //                 },
-        //             }
-        //         ],
-        //         {
-        //             cancelable: false
-        //         }
-        //     );
-            this.addMovie(this.state.movie);
-        // } else {
-        //     Alert.alert(
-        //         "Remove from Favorites",
-        //         "Do you want to remove this movie from favorites?",
-        //         [
-        //             {
-        //                 text: "No",
-        //                 onPress: () => this.setState({ icon_name: "heart" }),
-        //                 style: "cancel"
-        //             },
-        //             {
-        //                 text: "Yes",
-        //                 onPress: () => {
-        //                     this.setState({ icon_name: "heart-outline" });
-        //                     alert(favorites)
-        //                 },
-        //             }
-        //         ],
-        //         {
-        //             cancelable: false
-        //         }
-        //     );
-        // }
+        if (this.state.icon_name.includes("heart-outline")) {
+            Alert.alert(
+                "Add to Favorites",
+                "Do you want to add this movie to favorites?",
+                [
+                    {
+                        text: "No",
+                        onPress: () => this.setState({ icon_name: "heart-outline" }),
+                        style: "cancel"
+                    },
+                    {
+                        text: "Yes",
+                        onPress: () => {
+                            this.setState({ icon_name: "heart" });
+                            this.addMovie(this.state.movie);
+                        },
+                    }
+                ],
+                {
+                    cancelable: false
+                }
+            );
+        } else {
+            Alert.alert(
+                "Remove from Favorites",
+                "Do you want to remove this movie from favorites?",
+                [
+                    {
+                        text: "No",
+                        onPress: () => this.setState({ icon_name: "heart" }),
+                        style: "cancel"
+                    },
+                    {
+                        text: "Yes",
+                        onPress: () => {
+                            this.setState({ icon_name: "heart-outline" });
+                            this.deleteMovie(this.state.movie.id);
+                        },
+                    }
+                ],
+                {
+                    cancelable: false
+                }
+            );
+        }
     }
 
     renderItemCast = ({ item }) => {
@@ -215,9 +214,12 @@ class MovieDetailsScreen extends React.Component {
             </View>
         );
     }
+    
+    _keyExtractor = (item, index) => item.id.toString();
 
     render() {
         const { genre_ids } = this.props.route.params;
+        const { genres } = this.props.route.params;
         if (this.state.isLoaded) {
             return (
                 <View style={styles.loader}>
@@ -249,17 +251,23 @@ class MovieDetailsScreen extends React.Component {
                         <View style={{flex: 1}}>
                             <Text style={styles.movieTitle}>{this.state.movie.original_title}</Text>
                             <Text style={styles.genre}>
-                                {genre_ids.map((item, index) => 
-                                    index == item.length - 1 ? genre[item].name : `${genre[item].name}/`)}
+                                {
+                                    genres == undefined ?
+                                        (genre_ids == undefined ?
+                                            (genres.map((item) => `${item.name}/`)) :
+                                                genre_ids.map((item, index) => 
+                                                    index == item.length - 1 ? `${genre[item].name}` : `${genre[item].name}/`)) :
+                                        (genres.map((item) => `${item.name}/` ))
+                                }
                             </Text>
                             <Text style={styles.releaseDate}>{convertToDate(this.state.movie.release_date)}</Text>
                             <Text style={styles.rating}>{this.state.movie.vote_average}/10</Text>
                             <FAB
-                                style={styles.fabMD}
-                                small
-                                icon={this.state.icon_name}
-                                onPress={this.createAlertForFavorites}
-                            />
+                                    style={styles.fabMD}
+                                    small
+                                    icon={this.state.icon_name}
+                                    onPress={this.createAlertForFavorites}
+                                />
                         </View>
                         <View style={{flex: 1}}>
                             <Text style={styles.desc}>{this.state.movie.overview}</Text>
@@ -286,7 +294,7 @@ class MovieDetailsScreen extends React.Component {
                                 horizontal={true}
                                 data={this.state.cast}
                                 renderItem={this.renderItemCast}
-                                keyExtractor={(item, index) => index.toString()}
+                                keyExtractor={this._keyExtractor}
                                 showsHorizontalScrollIndicator={false}
                             />
                         </ScreenWrapper>
@@ -300,7 +308,7 @@ class MovieDetailsScreen extends React.Component {
                                 horizontal={true}
                                 data={this.state.similar_movies}
                                 renderItem={this.renderItemSimilarMovies}
-                                keyExtractor={(item, index) => index.toString()}
+                                keyExtractor={this._keyExtractor}
                                 showsHorizontalScrollIndicator={false}
                             />
                         </ScreenWrapper>
@@ -314,7 +322,7 @@ class MovieDetailsScreen extends React.Component {
                                 horizontal={false}
                                 data={this.state.trailers}
                                 renderItem={this.renderItemTrailer}
-                                keyExtractor={(item, index) => index.toString()}
+                                keyExtractor={this._keyExtractor}
                                 showsHorizontalScrollIndicator={false}
                             />
                         </ScreenWrapper>
@@ -336,6 +344,3 @@ function mapStateToProps(state) {
 export default connect(
     mapStateToProps
 )(MovieDetailsScreen);
-
-// export default MovieDetailsScreen;
-//   export {connectDetails as MovieDetailsScreen};

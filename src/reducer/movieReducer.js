@@ -1,3 +1,4 @@
+import { Alert } from 'react-native';
 import {
     GET_MOVIE, 
     ADD_MOVIE,
@@ -15,6 +16,24 @@ const movieReducer = (state = initialState, action) => {
                 favorites: action.favorites
             };
         case ADD_MOVIE:
+            const exists = state.favorites.some(l => l.id == action.favorites.id);
+            if (exists) {
+                Alert.alert(
+                    "Exists",
+                    "This movie already exists in favorites!",
+                    [
+                        {
+                            text: "Okay",
+                            onPress: () => { console.log("OKAY pressed!") },
+                        }
+                    ],
+                    {
+                        cancelable: false
+                    }
+                );
+                return state;
+            }
+
             return {
                 favorites: [...state.favorites, action.favorites]
             };

@@ -1,6 +1,5 @@
 import React from 'react';
-import {NavigationContainer} from "@react-navigation/native";
-import {createStackNavigator} from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
 
@@ -9,7 +8,8 @@ import MovieDetailsScreen from "../screens/MovieDetails/MovieDetailsScreen";
 
 function NavigationStackFavorites() {
     return (
-        <Stack.Navigator initialRouteName="Favorites">
+        <Stack.Navigator
+            initialRouteName="Favorites">
             <Stack.Screen
                 name="Favorites"
                 component={FavoriteScreen}
@@ -18,12 +18,13 @@ function NavigationStackFavorites() {
                 }}
             />
             <Stack.Screen
-                name="MovieDetailsFavorites"
+                name="MovieDetails"
                 component={MovieDetailsScreen}
                 options={{
                     headerStyle: {
                         backgroundColor: '#B43343'
-                    }
+                    },
+                    headerTitle: "Details"
                 }}
             />
         </Stack.Navigator>

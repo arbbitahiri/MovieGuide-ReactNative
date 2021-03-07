@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-    createStackNavigator,
-    TransitionSpecs,
-    CardStyleInterpolators,
-    HeaderStyleInterpolators 
-} from "@react-navigation/stack";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const Stack = createStackNavigator();
 
@@ -14,8 +9,7 @@ import MovieDetailsScreen from "../screens/MovieDetails/MovieDetailsScreen";
 function NavigationStackHome() {
     return (
         <Stack.Navigator
-            initialRouteName="Home"
-            >
+            initialRouteName="Home" >
             <Stack.Screen
                 name="Home"
                 component={HomeScreen}

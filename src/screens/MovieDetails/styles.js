@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         width: windowWidth - 166,
         right: 0,
         color: TEXT_COLOR,
-        fontSize: 15,
+        fontSize: 12,
         textAlign: 'center',
         alignItems: 'center',
         fontFamily: 'Montserrat-Light'
@@ -147,8 +147,19 @@ const styles = StyleSheet.create({
         marginEnd: 16,
         marginBottom: 8,
         color: TEXT_COLOR,
+        textAlign: 'justify',
         fontSize: 15,
-        fontFamily: 'Montserrat-Light'
+        ...Platform.select({
+            android: {
+                fontFamily: 'Raleway-Medium'
+            },
+            ios: {
+                fontFamily: 'Montserrat-Light'
+            },
+            default: {
+                fontFamily: 'Raleway-Medium'
+            }
+        })
     },
     runtime: {
         marginTop: 0,

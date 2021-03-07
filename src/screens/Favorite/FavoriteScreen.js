@@ -23,6 +23,7 @@ class FavoriteScreen extends React.Component {
             favorite: [],
             isFetched: true,
             icon_name: "heart",
+            isRefreshing: false,
         }
     }
 
@@ -39,7 +40,7 @@ class FavoriteScreen extends React.Component {
         } catch (error) {
             console.log(error, this.state.isFetched);
         } finally {
-            this.setState({ isFetched: false });
+            this.setState({ isFetched: false, isRefreshing: false });
         }
     };
 
@@ -73,7 +74,7 @@ class FavoriteScreen extends React.Component {
         return (
             <View style={styles.listItemFav}>
                 <TouchableWithoutFeedback onPress={() => 
-                    this.props.navigation.navigate('MovieDetails', { movie_id: item.id, genres: item.genres })} > 
+                    this.props.navigation.navigate('MovieDetails', { movie_id: item.id, genres: item.genres, favBtn: "heart" })} > 
                     <Image
                         style={styles.imageViewFav}
                         source={{ uri: makePhotoUrl(item.poster_path) }}
@@ -98,6 +99,12 @@ class FavoriteScreen extends React.Component {
 
     _keyExtractor = (item, index) => item.id.toString();
 
+    handleRefresh = () => {
+        this.setState({ isRefreshing: true }, () => {
+            this.mapMovie();
+        })
+    }
+
     render(){
         if (this.state.isFetched) {
             return (
@@ -115,6 +122,9 @@ class FavoriteScreen extends React.Component {
                             renderItem={this.renderItemFavorites}
                             keyExtractor={this._keyExtractor}
                             ItemSeparatorComponent={this.renderSeparator}
+                            extraData={this.state.favorite}
+                            refreshing={this.state.isRefreshing}
+                            onRefresh={this.handleRefresh}
                         />
                     </View>
                 </View>

@@ -55,12 +55,16 @@ class MovieDetailsScreen extends React.Component {
             trailers: [],
             icon_name: "heart-outline",
             favorite: [],
-            isFetched: true,
         }
     }
 
     componentDidMount() {
         const { movie_id } = this.props.route.params;
+        const { favBtn } = this.props.route.params;
+
+        if (favBtn != undefined) {
+            this.setState({ icon_name: favBtn })
+        }
         
         this.fetchMovie(movie_id);
         this.fetchCast(movie_id);
@@ -253,21 +257,21 @@ class MovieDetailsScreen extends React.Component {
                             <Text style={styles.genre}>
                                 {
                                     genres == undefined ?
-                                        (genre_ids == undefined ?
+                                        genre_ids == undefined ?
                                             (genres.map((item) => `${item.name}/`)) :
                                                 genre_ids.map((item, index) => 
-                                                    index == item.length - 1 ? `${genre[item].name}` : `${genre[item].name}/`)) :
+                                                    index == item.length - 1 ? `${genre[item].name}` : `${genre[item].name}/`) :
                                         (genres.map((item) => `${item.name}/` ))
                                 }
                             </Text>
                             <Text style={styles.releaseDate}>{convertToDate(this.state.movie.release_date)}</Text>
                             <Text style={styles.rating}>{this.state.movie.vote_average}/10</Text>
                             <FAB
-                                    style={styles.fabMD}
-                                    small
-                                    icon={this.state.icon_name}
-                                    onPress={this.createAlertForFavorites}
-                                />
+                                style={styles.fabMD}
+                                small
+                                icon={this.state.icon_name}
+                                onPress={this.createAlertForFavorites}
+                            />
                         </View>
                         <View style={{flex: 1}}>
                             <Text style={styles.desc}>{this.state.movie.overview}</Text>

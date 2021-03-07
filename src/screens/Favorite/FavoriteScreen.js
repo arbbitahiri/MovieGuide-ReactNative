@@ -6,14 +6,19 @@ import {
     FlatList,
     TouchableWithoutFeedback,
     ActivityIndicator,
-    Alert
+    Alert,
+    Input
 } from "react-native";
 import styles from "./styles"
 import { connect } from 'react-redux';
 import makePhotoUrl from '../../configurations/makePhotoUrl';
-import { MAIN_COLOR } from '../../constants/Colors';
+import { 
+    TEXT_COLOR,
+    MAIN_COLOR 
+} from '../../constants/Colors';
 import { convertToDate } from '../../configurations/convertToDate';
 import { convertRuntimeToTime } from '../../configurations/convertRuntimeToTime';
+import { Searchbar } from "react-native-paper";
 
 class FavoriteScreen extends React.Component {
     constructor(props) {
@@ -24,6 +29,7 @@ class FavoriteScreen extends React.Component {
             isFetched: true,
             icon_name: "heart",
             isRefreshing: false,
+            query: ''
         }
     }
 
@@ -105,6 +111,34 @@ class FavoriteScreen extends React.Component {
         })
     }
 
+    handleSearch = ( text ) => {
+        const movieSearched = this.state.favorite.filter((movie) => {
+            const movieData = `${movie.original_title.toLowerCase()}`;
+            const textData = text.toLowerCase();
+
+            return movieData.indexOf(textData) > -1
+        });
+
+        this.setState({ favorite: movieSearched })
+    }
+
+    renderHeader = () => {
+        return(
+            <Searchbar
+                placeholder="Search for a movie..."
+                autoCapitalize="none"
+                autoCorrect={false}
+                clearButtonMode="always"
+                onChangeText={(text) => this.handleSearch(text)}
+                // onSubmitEditing={this.onSubmitEditing}
+                // value={search_movie}
+                showLoading={true}
+                style={styles.searchBar}
+                inputStyle={{color: TEXT_COLOR}}
+            />
+        )
+    }
+
     render(){
         if (this.state.isFetched) {
             return (
@@ -125,6 +159,7 @@ class FavoriteScreen extends React.Component {
                             extraData={this.state.favorite}
                             refreshing={this.state.isRefreshing}
                             onRefresh={this.handleRefresh}
+                            ListHeaderComponent={this.renderHeader}
                         />
                     </View>
                 </View>
